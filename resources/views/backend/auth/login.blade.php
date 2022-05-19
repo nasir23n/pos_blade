@@ -233,7 +233,7 @@
         <form class="frm" action="{{ route('admin.login') }}" method="POST">
             @csrf
             <div class="had">
-                <img src="{{ asset('backend/image/user.svg') }}" alt="user">
+                <img src="{{ asset('backend/image/logo.jpg') }}" alt="user">
             </div>
             <h2 style="text-align:center;">Admin Login</h2>
             <br>
@@ -253,9 +253,9 @@
                     {{ session('success') }}
                 </div>
             @endif
-            @if (session('fail'))
+            @if (session('error'))
                 <div class="errs danger">
-                    {{ session('fail') }}
+                    {{ session('error') }}
                 </div>
             @endif
             @if (session('status'))
@@ -263,13 +263,13 @@
                     {{ session('status') }}
                 </div>
             @endif 
-            <input class="fld" type="email" name="email" placeholder="Email" value="{{ old('email') }}" autofocus required>
+            <input class="fld" type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}" autofocus required>
             <input style="margin-bottom:20px;" class="fld" type="password" name="password" placeholder="Password" required>
             <div style="margin-bottom: 20px;">
                 <input class="remember" type="checkbox" id="remember" name="remember" checked>
                 <label for="remember" class="fre">
                     <span class="fre_check"></span>
-                    Accept all things
+                    Remember me
                 </label>
             </div>
             @if (array_key_exists('block_time', $errors->messages()))
