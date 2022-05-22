@@ -71,6 +71,7 @@ $light_grey_hover: #EAF3FF;
             align-items: center;
             & img {
                 width: 70px;
+                height: 70px;
             }
         }
         & .info {
@@ -90,10 +91,12 @@ $light_grey_hover: #EAF3FF;
     }
 
     & .aside_links {
+        &>li {
+            padding: 0 7px;
+        }
         & li {
             position: relative;
             transition: $transition;
-            padding: 0 7px;
             &.aside_drop {
                 & .aside_drop_btn {
                     position: relative;
@@ -154,7 +157,7 @@ $light_grey_hover: #EAF3FF;
                                     }
                                 }
                                 &.active {
-                                    background: #ddd;
+                                    background: var(--bs-blue-100);
                                     &::after {
                                         left: calc(5px + 7px);
                                         opacity: 1;
@@ -164,7 +167,7 @@ $light_grey_hover: #EAF3FF;
                         }
                     }
                     &.active { 
-                        background: var(--light_gray_active);
+                        // background: var(--light_gray_active);
                         &:before {
                             transform: translate(-50%, -50%) rotate(45deg);
                             top: calc(50% - 2px);

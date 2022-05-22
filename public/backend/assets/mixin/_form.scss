@@ -42,8 +42,8 @@ select {
 } 
 
 .form_control {
-	font-size: 16px;
-	padding: 7px 10px;
+	font-size: rem(16);
+	padding: 10px;
 	border: 1px solid make_color('g5');
 	background: #fff;
 	color: make_color('g9');

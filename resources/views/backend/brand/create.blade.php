@@ -5,34 +5,35 @@
 
 @include('backend.global.alert')
 
-<div class="panel">
-    <div class="header">
+<div class="card">
+    <div class="card-header">
         <h4>Create Brand</h4>
     </div>
-    <div class="body">
-        <form action="{{ route('brands.store') }}" method="post">
+    <div class="card-body">
+        <form action="{{ route('admin.brands.store') }}" method="post">
             @csrf
-            <div class="form_group">
+            <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" name="name" class="form_control" placeholder="Brand name">
-                        <input type="text" name="details" class="form_control" placeholder="Brand Details">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Brand name</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Brand Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="details" class="form-label">Brand Details</label>
+                            <input type="text" name="details" class="form-control" id="details" placeholder="name@example.com">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" name="status" type="checkbox" id="status">
+                            <label class="form-check-label" for="status">
+                                Status
+                            </label>
+                        </div>
+                        <button class="btn btn-primary">Save Brand</button>
                     </div>
-                </div>
-            </div>
-            <div class="form_group">    
-                <div class="col-md-6 my-3">
-                    <label class="block_checkbox">
-                        <input class="checkbox primary" type="checkbox">
-                        <span>Status</span>
-                    </label> 
-                </div>
-                <div class="col-md-6">
-                    <button class="nl primary">Save Brand</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
 @endsection
