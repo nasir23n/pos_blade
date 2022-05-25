@@ -1,65 +1,63 @@
 // /**
 // ***all button class list
-// nl 
-// nl.default
-// nl.primary
-// nl.secondary
-// nl.success
-// nl.info
-// nl.warning
-// nl.danger
-// nl.facebook
-// nl.youtube
-// nl.twitter
-// nl.linkedin
-// nl.skype
-// nl.dropbox
-// nl.tumblr
-// nl.pinterest
-// nl.snapchat
-// nl.green
-// nl.deep_green
-// nl.purple
-// nl.deep_purple
-// nl.indigo
-// nl.teal
-// nl.cyan
-// nl.orange
-// nl.deep_orange
-// nl.dark
-// nl.black
-// nl.red
-// nl.pink
-// nl.blue
-// nl.light_blue
-// nl.yellow
-// nl.brown
-// nl.grey
+// nl_btn 
+// nl_btn.default
+// nl_btn.primary
+// nl_btn.secondary
+// nl_btn.success
+// nl_btn.info
+// nl_btn.warning
+// nl_btn.danger
+// nl_btn.facebook
+// nl_btn.youtube
+// nl_btn.twitter
+// nl_btn.linkedin
+// nl_btn.skype
+// nl_btn.dropbox
+// nl_btn.tumblr
+// nl_btn.pinterest
+// nl_btn.snapchat
+// nl_btn.green
+// nl_btn.deep_green
+// nl_btn.purple
+// nl_btn.deep_purple
+// nl_btn.indigo
+// nl_btn.teal
+// nl_btn.cyan
+// nl_btn.orange
+// nl_btn.deep_orange
+// nl_btn.dark
+// nl_btn.black
+// nl_btn.red
+// nl_btn.pink
+// nl_btn.blue
+// nl_btn.light_blue
+// nl_btn.yellow
+// nl_btn.brown
+// nl_btn.grey
 
 // ***outline button 
-// nl.outline 
+// nl_btn.outline 
 // ***outline theme
-// nl.success .................etc */  
-.nl {
+// nl_btn.success .................etc */  
+.nl_btn {
    display: inline-block;
-   font-size: 16px;
-   margin: 5px 0;
-   padding: 8px 15px;
+   font-size: rem(16);
+   margin: rem(5) 0;
+   padding: rem(10) rem(20);
    position: relative;
-   // transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .01s ease-in-out;
-   transition: all 0.15s ease-in-out;
-   background: #ebedf0;
+   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .01s ease-in-out;
+   background: make_color('g2');
    font-weight: 400;
    text-transform: capitalize !important;
    white-space: normal !important;
    word-wrap: break-word !important;
    text-decoration: none !important;
-   color: #303338;
+   color: make_color('g9');
    text-align: center;
-   user-select: none;
+	user-select: none;
    vertical-align: middle;
-   border-radius: 4px;
-
+   border-radius: 6px;
    @include hover_focus() {
       // box-shadow: 0 4px 4px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.12);
       background: #DADDE1;
@@ -67,7 +65,7 @@
    }
    
    &:active {
-      transform: scale(0.97);
+      transform: scale(0.95);
    }
 
    &:last-child {
@@ -106,7 +104,7 @@
             color: make_color(g1); 
             @include hover_focus_active {
                & {
-                  // box-shadow: 0 rem(2) rem(4) 0 transparentize($value, 0.7),0 rem(2) rem(10) 0 transparentize($value, 0.8) !important;
+                  box-shadow: 0 rem(2) rem(4) 0 transparentize($value, 0.7),0 rem(2) rem(10) 0 transparentize($value, 0.8) !important;
                   // box-shadow: 0 4px 4px transparentize($value, 0.9), 0 4px 10px transparentize($value, 0.8);
                   background: darken($value, 5);
                   color: #ffffff;

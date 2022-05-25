@@ -1,150 +1,347 @@
 @extends('backend.layouts.app')
 
 @section('content')
-<h1 class="content_header">Dashboard</h1>
+
+<h3 class="content_header">Dashboard</h3>
 <div class="row">
-    <!-- ------------------------ -->
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="deshboard_items default">
-            <div class="deshboard_icon"><i class="fa fa-ambulance"></i></div>
-            <div class="deshboard_content">
-                <h3>lorem ipsum</h3>
-                <p>0</p>
-            </div>
-        </div>
-    </div>
-    <!-- ------------------------ -->
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="deshboard_items secondary">
-            <div class="deshboard_icon"><i class="fab fa-dropbox"></i></div>
-            <div class="deshboard_content">
-                <h3>lorem ipsum</h3>
-                <p>0</p>
-            </div>
-        </div>
-    </div>
-    <!-- ------------------------ -->
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="deshboard_items warning">
-            <div class="deshboard_icon"><i class="fa fa-bullseye"></i></div>
-            <div class="deshboard_content">
-                <h3>lorem ipsum</h3>
-                <p>0</p>
-            </div>
-        </div>
-    </div>
-    <!-- ------------------------ -->
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="deshboard_items primary">
-            <div class="deshboard_icon"><i class="fa fa-cubes"></i></div>
-            <div class="deshboard_content">
-                <h3>lorem ipsum</h3>
-                <p>0</p>
-            </div>
-        </div>
-    </div>
-    <!-- ------------------------ -->
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="deshboard_items success">
-            <div class="deshboard_icon"><i class="fab fa-joomla"></i></div>
-            <div class="deshboard_content">
-                <h3>lorem ipsum</h3>
-                <p>0</p>
-            </div>
-        </div>
-    </div>
-    <!-- ------------------------ -->
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="deshboard_items info">
-            <div class="deshboard_icon"><i class="fa fa-filter"></i></div>
-            <div class="deshboard_content">
-                <h3>lorem ipsum</h3>
-                <p>0</p>
-            </div>
-        </div>
-    </div>
-    <!-- ------------------------ -->
-</div>
-<div class="panel">
-    <div class="header">
-        <h3 class="card-title">Bordered Table</h3>
-    </div>
-
-    <div class="body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Task</th>
-                    <th>Progress</th>
-                    <th style="width: 40px">Label</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1.</td>
-                    <td>Update software</td>
-                    <td>
-                        <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-danger"
-                                style="width: 55%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-danger">55%</span></td>
-                </tr>
-                <tr>
-                    <td>2.</td>
-                    <td>Clean database</td>
-                    <td>
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-warning" style="width: 70%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-warning">70%</span></td>
-                </tr>
-                <tr>
-                    <td>3.</td>
-                    <td>Cron job running</td>
-                    <td>
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-primary">30%</span></td>
-                </tr>
-                <tr>
-                    <td>4.</td>
-                    <td>Fix and squish bugs</td>
-                    <td>
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-success">90%</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="footer d-flex">
-        <ul class="pagination pagination m-0 float-right">
-            <li class="page-item">
-                <a class="page-link" href="#">«</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">»</a>
-            </li>
-        </ul>
-        <button class="btn btn-primary ml-auto">Click</button>
+    <div class="col-md-12 mb-4">
+        <button id="nl_modal" class="btn btn-primary">modal</button>
     </div>
 </div>
+
+<div class="row mb-3 gy-4 gx-4">
+    
+    <div class="col-xl-4 col-md-6 col-sm-6">
+        <div class="card shadow-sm rounded border-0">
+            <div class="card-body">
+                <div class="d-flex">
+                    <span class="text-bg-blue-600 mb-0 d-flex justify-content-center align-items-center h3 py-2 px-4 rounded">
+                        <i class="fab fa-btc"></i>
+                    </span>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-1 font-20">$12,500</h4>
+                        <p class="mb-0"><i class="fas fa-angle-double-up"></i> 45% This Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-6">
+        <div class="card shadow-sm rounded border-0">
+            <div class="card-body">
+                <div class="d-flex">
+                    <span class="text-bg-red-600 mb-0 d-flex justify-content-center align-items-center h3 py-2 px-3 rounded">
+                        <i class="fab fa-usb"></i>
+                    </span>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-1 font-20">$12,500</h4>
+                        <p class="mb-0"><i class="fas fa-angle-double-up"></i> 45% This Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-6">
+        <div class="card shadow-sm rounded border-0">
+            <div class="card-body">
+                <div class="d-flex">
+                    <span class="text-bg-blue-500 mb-0 d-flex justify-content-center align-items-center h3 py-2 px-3 rounded">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-1 font-20">$12,500</h4>
+                        <p class="mb-0"><i class="fas fa-angle-double-up"></i> 45% This Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-6">
+        <div class="card shadow-sm rounded border-0">
+            <div class="card-body">
+                <div class="d-flex">
+                    <span class="text-bg-yellow-500 mb-0 d-flex justify-content-center align-items-center h3 py-2 px-3 rounded">
+                        <i class="fas fa-undo"></i>
+                    </span>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-1 font-20">$12,500</h4>
+                        <p class="mb-0"><i class="fas fa-angle-double-up"></i> 45% This Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-6">
+        <div class="card shadow-sm rounded border-0">
+            <div class="card-body">
+                <div class="d-flex">
+                    <span class="text-bg-purple-600 mb-0 d-flex justify-content-center align-items-center h3 py-2 px-3 rounded">
+                        <i class="fas fa-shopping-basket"></i>
+                    </span>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-1 font-20">$12,500</h4>
+                        <p class="mb-0"><i class="fas fa-angle-double-up"></i> 45% This Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-6">
+        <div class="card shadow-sm rounded border-0">
+            <div class="card-body">
+                <div class="d-flex">
+                    <span class="text-bg-success mb-0 d-flex justify-content-center align-items-center h3 py-2 px-3 rounded">
+                        <i class="fab fa-shopware"></i>
+                    </span>
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-1 font-20">$12,500</h4>
+                        <p class="mb-0"><i class="fas fa-angle-double-up"></i> 45% This Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row g-4 my-3">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h4 class="header-title mb-0">Transaction List</h4>
+                    <div>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected="">Today</option>
+                            <option value="1">Yesterday</option>
+                            <option value="2">Tomorrow</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-centered table-nowrap mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="assets/image/user.svg" alt="Avtar image" width="33">
+                                        </div>
+                                        <div class="flex-grow-1 ms-2">
+                                            Adam Baldwin
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-calendar me-1"></i>Jan 01, 2022</td>
+                                <td>
+                                    <span class="badge text-bg-blue-100 text-success">Incoming</span>
+                                </td>
+                                <td>
+                                    <span class="text-success fw-semibold">+ $2,586.60</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="javascript:void(0)" class="text-info me-2" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-pen-alt"></i></a>
+                                    <a href="javascript:void(0)" class="text-danger" data-bs-custom-class="tooltip-danger" data-bs-toggle="tooltip" title="Delete"><i class="fa fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="assets/image/user.svg" alt="Avtar image" width="33">
+                                        </div>
+                                        <div class="flex-grow-1 ms-2">
+                                            Adam Baldwin
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-calendar me-1"></i>Jan 01, 2022</td>
+                                <td>
+                                    <span class="badge text-bg-blue-100 text-success">Incoming</span>
+                                </td>
+                                <td>
+                                    <span class="text-success fw-semibold">+ $2,586.60</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="javascript:void(0)" class="text-info me-2" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-pen-alt"></i></a>
+                                    <a href="javascript:void(0)" class="text-danger" data-bs-custom-class="tooltip-danger" data-bs-toggle="tooltip" title="Delete"><i class="fa fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="assets/image/user.svg" alt="Avtar image" width="33">
+                                        </div>
+                                        <div class="flex-grow-1 ms-2">
+                                            Adam Baldwin
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-calendar me-1"></i>Jan 01, 2022</td>
+                                <td>
+                                    <span class="badge text-bg-blue-100 text-success">Incoming</span>
+                                </td>
+                                <td>
+                                    <span class="text-success fw-semibold">+ $2,586.60</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="javascript:void(0)" class="text-info me-2" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-pen-alt"></i></a>
+                                    <a href="javascript:void(0)" class="text-danger" data-bs-custom-class="tooltip-danger" data-bs-toggle="tooltip" title="Delete"><i class="fa fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="assets/image/user.svg" alt="Avtar image" width="33">
+                                        </div>
+                                        <div class="flex-grow-1 ms-2">
+                                            Adam Baldwin
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-calendar me-1"></i>Jan 01, 2022</td>
+                                <td>
+                                    <span class="badge text-bg-blue-100 text-success">Incoming</span>
+                                </td>
+                                <td>
+                                    <span class="text-success fw-semibold">+ $2,586.60</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="javascript:void(0)" class="text-info me-2" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-pen-alt"></i></a>
+                                    <a href="javascript:void(0)" class="text-danger" data-bs-custom-class="tooltip-danger" data-bs-toggle="tooltip" title="Delete"><i class="fa fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="assets/image/user.svg" alt="Avtar image" width="33">
+                                        </div>
+                                        <div class="flex-grow-1 ms-2">
+                                            Adam Baldwin
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-calendar me-1"></i>Jan 01, 2022</td>
+                                <td>
+                                    <span class="badge text-bg-blue-100 text-success">Incoming</span>
+                                </td>
+                                <td>
+                                    <span class="text-success fw-semibold">+ $2,586.60</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="javascript:void(0)" class="text-info me-2" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-pen-alt"></i></a>
+                                    <a href="javascript:void(0)" class="text-danger" data-bs-custom-class="tooltip-danger" data-bs-toggle="tooltip" title="Delete"><i class="fa fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="assets/image/user.svg" alt="Avtar image" width="33">
+                                        </div>
+                                        <div class="flex-grow-1 ms-2">
+                                            Adam Baldwin
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-calendar me-1"></i>Jan 01, 2022</td>
+                                <td>
+                                    <span class="badge text-bg-blue-100 text-success">Incoming</span>
+                                </td>
+                                <td>
+                                    <span class="text-success fw-semibold">+ $2,586.60</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="javascript:void(0)" class="text-info me-2" data-bs-toggle="tooltip" title="Edit"><i class="fa fa-pen-alt"></i></a>
+                                    <a href="javascript:void(0)" class="text-danger" data-bs-custom-class="tooltip-danger" data-bs-toggle="tooltip" title="Delete"><i class="fa fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Chart col end -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="toolbar">
+                    Progress
+                </div>
+                <!-- <div id="chart"></div> -->
+                <canvas id="myChart" width="356" height="178" style="display: block; box-sizing: border-box; height: 178px; width: 356px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@push('js')
+<script src="{{ asset('backend/common/js/chart.min.js') }}"></script>
+<script>
+    $('#nl_modal').click(function() {
+        NL_Modal.open({
+            size: 'md',
+            preload: true,
+            body: function(body_class) {
+                body_class.html(`
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem consectetur quisquam assumenda tempore facere repellendus earum officiis amet odit quas, tempora eveniet debitis! Nulla eligendi tempore culpa id laudantium? Adipisci.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem consectetur quisquam assumenda tempore facere repellendus earum officiis amet odit quas, tempora eveniet debitis! Nulla eligendi tempore culpa id laudantium? Adipisci.</p>
+                `);
+            }
+        });
+    });
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+@endpush
+
+
 @endsection

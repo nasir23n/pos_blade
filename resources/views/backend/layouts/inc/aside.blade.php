@@ -20,15 +20,17 @@
                 </a>
             </li>
             <li class="aside_drop">
-                <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('brands*') ? 'active' : '' }}">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.brands*') ? 'active' : '' }}">
                     <i class="aside_icon fab fa-canadian-maple-leaf"></i>
                     Brands
                 </a>
                 <ul>
-                    <li><a class="{{ Route::is('brands.index') ? 'active' : '' }}" href="{{ route('brands.index') }}">All Brands</a></li>
-                    <li><a class="{{ Route::is('brands.create') ? 'active' : '' }}" href="{{ route('brands.create') }}">Create Brands</a></li>
+                    <li><a class="{{ Route::is('admin.brands.index') ? 'active' : '' }}" href="{{ route('admin.brands.index') }}">All Brands</a></li>
+                    <li><a class="{{ Route::is('admin.brands.create') ? 'active' : '' }}" href="{{ route('admin.brands.create') }}">Create Brands</a></li>
                 </ul>
             </li>
+            <li><a href="{{ route('admin.font_awesome') }}" class="{{ Route::is('admin.font_awesome') ? 'active' : '' }}"><i class="aside_icon far fa-flag"></i> Font Awesome</a></li>
+            <li><a href="{{ route('admin.bootstrap_icon') }}" class="{{ Route::is('admin.bootstrap_icon') ? 'active' : '' }}"><i class="fab aside_icon fa-bootstrap"></i> Bootstrap Icons</a></li>
             {{-- 
             <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn">

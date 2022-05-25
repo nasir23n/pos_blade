@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>POS BACKEND</title>
 	<link rel="stylesheet" href="{{ asset('backend/common/font-awesome/css/all.min.css') }}" />
-	<link rel="stylesheet" href="{{ asset('backend/common/css/bootstrap.min.css') }}" />
+	<link rel="stylesheet" href="{{ asset('backend/common/bootstrap/scss/bootstrap.css') }}" />
 	<link rel="stylesheet" href="{{ asset('backend/assets/master.css') }}" />
 	<script src="{{ asset('backend/common/js/jquery-3.4.1.min.js') }}"></script>
+	<script src="{{ asset('backend/assets/js/nl.js') }}"></script>
+	@stack('css')
 </head>
 <body>
 	<form id="logout" action="{{ route('admin.logout') }}" method="post">@csrf</form>
@@ -24,5 +26,8 @@
 		</div>
 	</div>
 
+	<script src="{{ asset('backend/common/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('backend/assets/js/app.js') }}"></script>
+
+	@stack('js')
 </html>

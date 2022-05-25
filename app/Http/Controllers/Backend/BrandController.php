@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Yajra\DataTables\DataTables;
 
 class BrandController extends Controller
 {
@@ -15,10 +15,24 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->data['brand'] = Brand::all();
-        return view('backend.brand.index', $this->data);
+        if ($request->ajax()) {
+            $brands = Brand::all();
+            return DataTables::of($brands)
+                        ->addColumn('action', function ($brand) {
+                            return '<button class="edit badge text-bg-yellow-500"><i class="fa fa-pen"></i></button>
+                                    <button class="badge text-bg-red-500"><i class="fas fa-trash"></i></button>';
+                        })
+                        ->editColumn('created_at', function($brand) {
+                            return date('Y-m-d H:s A' ,strtotime($brand->created_at));
+                        })
+                        ->editColumn('updated_at', function($brand) {
+                            return date('Y-m-d H:s A' ,strtotime($brand->updated_at));
+                        })
+                        ->make(true);
+        }
+        return view('backend.brand.index');
     }
 
     /**
@@ -26,11 +40,13 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->ajax()) {
+            return view('backend.brand.form');
+        }
         return view('backend.brand.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -49,7 +65,7 @@ class BrandController extends Controller
             'slug'      => Str::slug($request->name),
             'details'   => $request->details,
         ]);
-        return redirect()->route('brands.index')->with('success', 'Brand Created Successfylly');
+        return redirect()->route('admin.brands.index')->with('success', 'Brand Created Successfylly');
     }
 
     /**
