@@ -20,6 +20,17 @@
                 </a>
             </li>
             <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.category.index') ? 'active' : '' }}">
+                    <i class="aside_icon fa fa-cubes"></i>
+                    Products
+                </a>
+                <ul>
+                    <li><a class="" href="">Product List</a></li>
+                    <li><a class="" href="">Product Create</a></li>
+                    <li><a class="{{ Route::is('admin.category.index') ? 'active' : '' }}" href="{{ route('admin.category.index') }}">Category</a></li>
+                </ul>
+            </li>
+            <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.brands*') ? 'active' : '' }}">
                     <i class="aside_icon fab fa-canadian-maple-leaf"></i>
                     Brands

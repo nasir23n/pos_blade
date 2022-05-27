@@ -21,7 +21,7 @@ class BrandController extends Controller
             $brands = Brand::all();
             return DataTables::of($brands)
                         ->addColumn('action', function ($brand) {
-                            return '<button class="edit badge text-bg-yellow-500"><i class="fa fa-pen"></i></button>
+                            return '<button class="edit badge text-bg-yellow-500" link="'.route('admin.brands.edit', $brand->id).'"><i class="fa fa-pen"></i></button>
                                     <button class="badge text-bg-red-500"><i class="fas fa-trash"></i></button>';
                         })
                         ->editColumn('created_at', function($brand) {
@@ -64,6 +64,7 @@ class BrandController extends Controller
             'name'      => $request->name,
             'slug'      => Str::slug($request->name),
             'details'   => $request->details,
+            'status'   => $request->status ? true : false,
         ]);
         return redirect()->route('admin.brands.index')->with('success', 'Brand Created Successfylly');
     }
@@ -87,7 +88,11 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        //
+        $brand = Brand::find($id);
+        if (!$brand) {
+            return false;
+        }
+        return view('backend.brand.form', compact('brand'));
     }
 
     /**
@@ -99,7 +104,17 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:brands,name,'.$id,
+            'details' => 'string|required'
+        ]);
+        $brand = Brand::find($id);
+        $brand->update([
+            'name'      => $request->name,
+            'slug'      => Str::slug($request->name),
+            'details'   => $request->details,
+        ]);
+        return redirect()->route('admin.brands.index')->with('success', 'Brand Update Successfylly');
     }
 
     /**
