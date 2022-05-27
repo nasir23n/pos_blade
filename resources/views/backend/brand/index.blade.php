@@ -48,7 +48,7 @@ $(document).ready(function(){
         processing: true,
         serverSide: true,
         // order: [[ 0, "asc" ]],
-        ajax: "{{ route('admin.brands.index') }}",
+        ajax: "{{ route('admin.brand.index') }}",
         columns: [
             { data: 'id' },
             { data: 'name' },
@@ -86,7 +86,7 @@ $(document).ready(function(){
             body: function(body_class, obj) {
                 $.ajax({
                     type: 'get',
-                    url: '{{ route("admin.brands.create") }}',
+                    url: '{{ route("admin.brand.create") }}',
                     success: function(data) {
                         body_class.html(data);
                     }

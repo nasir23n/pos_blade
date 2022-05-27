@@ -1,5 +1,5 @@
 
-<form action="{{ isset($brand) ? route('admin.brands.update', $brand->id) : route('admin.brands.store') }}" method="POST">
+<form action="{{ isset($brand) ? route('admin.brand.update', $brand->id) : route('admin.brand.store') }}" method="POST">
     @if (isset($brand))
         @method('PUT')
     @endif

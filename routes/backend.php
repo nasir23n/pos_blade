@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\UnitController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,7 +19,7 @@ Route::prefix('admin')->group(function() {
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('brands', BrandController::class);
+    Route::resource('brand', BrandController::class);
 
     Route::group(['as' => 'category.', 'prefix' => 'category'], function() {
         Route::get('/index', [CategoryController::class, 'index'])->name('index');
@@ -27,6 +28,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/{category}/edit/', [CategoryController::class, 'edit'])->name('edit');
         Route::post('/{category}/update/', [CategoryController::class, 'update'])->name('update');
         Route::delete('/{category}/delete/', [CategoryController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'unit.', 'prefix' => 'unit'], function() {
+        Route::get('/index', [UnitController::class, 'index'])->name('index');
+        Route::get('/create', [UnitController::class, 'create'])->name('create');
+        Route::post('/store', [UnitController::class, 'store'])->name('store');
+        Route::get('/{unit}/edit/', [UnitController::class, 'edit'])->name('edit');
+        Route::post('/{unit}/update/', [UnitController::class, 'update'])->name('update');
+        Route::delete('/{unit}/delete/', [UnitController::class, 'delete'])->name('delete');
     });
 
     

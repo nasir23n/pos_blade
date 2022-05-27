@@ -21,7 +21,7 @@ class BrandController extends Controller
             $brands = Brand::all();
             return DataTables::of($brands)
                         ->addColumn('action', function ($brand) {
-                            return '<button class="edit badge text-bg-yellow-500" link="'.route('admin.brands.edit', $brand->id).'"><i class="fa fa-pen"></i></button>
+                            return '<button class="edit badge text-bg-yellow-500" link="'.route('admin.brand.edit', $brand->id).'"><i class="fa fa-pen"></i></button>
                                     <button class="badge text-bg-red-500"><i class="fas fa-trash"></i></button>';
                         })
                         ->editColumn('created_at', function($brand) {
@@ -66,7 +66,7 @@ class BrandController extends Controller
             'details'   => $request->details,
             'status'   => $request->status ? true : false,
         ]);
-        return redirect()->route('admin.brands.index')->with('success', 'Brand Created Successfylly');
+        return redirect()->route('admin.brand.index')->with('success', 'Brand Created Successfylly');
     }
 
     /**
@@ -114,7 +114,7 @@ class BrandController extends Controller
             'slug'      => Str::slug($request->name),
             'details'   => $request->details,
         ]);
-        return redirect()->route('admin.brands.index')->with('success', 'Brand Update Successfylly');
+        return redirect()->route('admin.brand.index')->with('success', 'Brand Update Successfylly');
     }
 
     /**
