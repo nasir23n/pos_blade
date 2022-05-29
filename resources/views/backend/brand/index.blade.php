@@ -48,7 +48,7 @@ $(document).ready(function(){
         processing: true,
         serverSide: true,
         // order: [[ 0, "asc" ]],
-        ajax: "{{ route('admin.brands.index') }}",
+        ajax: "{{ route('admin.brand.index') }}",
         columns: [
             { data: 'id' },
             { data: 'name' },
@@ -56,20 +56,24 @@ $(document).ready(function(){
             { data: 'created_at' },
             { data: 'updated_at' },
             { data: 'action', name: 'action', orderable: false, searchable: false }
-            // {
-            //     data: "action", 
-            //     render: function(data,type,full,meta) { 
-            //         return `
-            //             <button class="edit btn btn-sm btn-info"><i class="fa fa-pen"></i></button>
-            //             <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-            //         `;
-            //     },
-            //     orderable: false,
-            // }
         ],
         initComplete: function(settings, json) {
-            $('.edit').click(function() {
-                console.log('some');
+            $('.edit').click(function(e) {
+                let $url = $(this).attr('link');
+                NL_Modal.open({
+                    title: 'Edit Brand',
+                    size: 'md',
+                    preload: true,
+                    body: function(body_class, obj) {
+                        $.ajax({
+                            type: 'get',
+                            url: $url,
+                            success: function(data) {
+                                body_class.html(data);
+                            }
+                        });
+                    }
+                });
             });
         }
     });
@@ -82,7 +86,7 @@ $(document).ready(function(){
             body: function(body_class, obj) {
                 $.ajax({
                     type: 'get',
-                    url: '{{ route("admin.brands.create") }}',
+                    url: '{{ route("admin.brand.create") }}',
                     success: function(data) {
                         body_class.html(data);
                     }
