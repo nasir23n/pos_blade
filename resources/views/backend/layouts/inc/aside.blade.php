@@ -38,6 +38,15 @@
                     <li><a class="{{ Route::is('admin.brand*') ? 'active' : '' }}" href="{{ route('admin.brand.index') }}">Brands</a></li>
                 </ul>
             </li>
+            <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.payment_method*')) ? 'active' : '' }}">
+                    <i class="aside_icon fa fa-cogs"></i>
+                    Settings
+                </a>
+                <ul>
+                    <li><a class="{{ Route::is('admin.payment_method.index') ? 'active' : '' }}" href="{{ route('admin.payment_method.index') }}">Payment Method</a></li>
+                </ul>
+            </li>
             {{-- <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.brand*') ? 'active' : '' }}">
                     <i class="aside_icon fab fa-canadian-maple-leaf"></i>

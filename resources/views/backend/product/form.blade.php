@@ -78,6 +78,13 @@
 
             <div class="col-md-6">
                 <div class="mb-3">
+                    <label for="purchase_price" class="form-label">Purchase Price</label>
+                    <input type="number" name="purchase_price" class="form-control" id="purchase_price" placeholder="Purchase Price" required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
                     <label for="sku" class="form-label">SKU</label>
                     <input type="text" name="sku" class="form-control" id="sku" placeholder="SKU" required>
                 </div>

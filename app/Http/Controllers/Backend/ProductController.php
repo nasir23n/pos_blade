@@ -33,6 +33,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'string|required',
             'sell_price' => 'required',
+            'purchase_price' => 'required',
             'unit_id' => 'required',
         ]);
 
@@ -57,7 +58,7 @@ class ProductController extends Controller
                 'product_id' => $product->id,
                 'effected_date' => Carbon::now('Asia/Dhaka'),
                 'sell_price' => $request->sell_price,
-                // 'purchase_price' => $request->purchase_price,
+                'purchase_price' => $request->purchase_price,
                 'updated_by' => auth()->user()->id,
             ]);
             if ($request->hasFile('image')) {

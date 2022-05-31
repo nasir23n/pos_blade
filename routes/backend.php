@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\UnitController;
@@ -39,6 +40,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/{unit}/edit/', [UnitController::class, 'edit'])->name('edit');
         Route::post('/{unit}/update/', [UnitController::class, 'update'])->name('update');
         Route::delete('/{unit}/delete/', [UnitController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'payment_method.', 'prefix' => 'payment_method'], function() {
+        Route::get('/index', [PaymentMethodController::class, 'index'])->name('index');
+        Route::get('/create', [PaymentMethodController::class, 'create'])->name('create');
+        Route::post('/store', [PaymentMethodController::class, 'store'])->name('store');
+        Route::get('/{payment_method}/edit/', [PaymentMethodController::class, 'edit'])->name('edit');
+        Route::post('/{payment_method}/update/', [PaymentMethodController::class, 'update'])->name('update');
+        Route::delete('/{payment_method}/delete/', [PaymentMethodController::class, 'delete'])->name('delete');
     });
 
     Route::group(['as' => 'product.', 'prefix' => 'product'], function() {
