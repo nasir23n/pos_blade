@@ -4,6 +4,8 @@ use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\UnitController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +41,26 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::delete('/{unit}/delete/', [UnitController::class, 'delete'])->name('delete');
     });
 
-    
+    Route::group(['as' => 'product.', 'prefix' => 'product'], function() {
+        Route::get('/index', [ProductController::class, 'index'])->name('index');
+        Route::get('/create', [ProductController::class, 'create'])->name('create');
+        Route::post('/store', [ProductController::class, 'store'])->name('store');
+        // Route::get('/{unit}/edit/', [ProductController::class, 'edit'])->name('edit');
+        // Route::post('/{unit}/update/', [ProductController::class, 'update'])->name('update');
+        Route::delete('/{product}/delete/', [ProductController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'supplier.', 'prefix' => 'supplier'], function() {
+        Route::get('/index', [SupplierController::class, 'index'])->name('index');
+        Route::get('/create', [SupplierController::class, 'create'])->name('create');
+        Route::post('/store', [SupplierController::class, 'store'])->name('store');
+        Route::get('/{supplier}/edit/', [SupplierController::class, 'edit'])->name('edit');
+        Route::post('/{supplier}/update/', [SupplierController::class, 'update'])->name('update');
+        Route::delete('/{supplier}/delete/', [SupplierController::class, 'delete'])->name('delete');
+    });
+
+
+
 
     // icon routes
     Route::get('font-awesome-icon', function() {

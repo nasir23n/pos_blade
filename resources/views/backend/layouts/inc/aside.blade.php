@@ -19,14 +19,20 @@
                     Deshboard
                 </a>
             </li>
+            <li>
+                <a class="{{ Route::is('admin.supplier*') ? 'active' : '' }}" href="{{ route('admin.supplier.index') }}">
+                    <i class="aside_icon fa fa-users"></i>
+                    Suppliers
+                </a>
+            </li>
             <li class="aside_drop">
-                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.category.index') || Route::is('admin.brand*') || Route::is('admin.unit.index')) ? 'active' : '' }}">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.category.index') || Route::is('admin.product*') || Route::is('admin.brand*') || Route::is('admin.unit.index')) ? 'active' : '' }}">
                     <i class="aside_icon fa fa-cubes"></i>
                     Products
                 </a>
                 <ul>
-                    <li><a class="" href="">Product List</a></li>
-                    <li><a class="" href="">Product Create</a></li>
+                    <li><a class="{{ Route::is('admin.product.index') ? 'active' : '' }}" href="{{ route('admin.product.index') }}">Product List</a></li>
+                    <li><a class="{{ Route::is('admin.product.create') ? 'active' : '' }}" href="{{ route('admin.product.create') }}">Product Create</a></li>
                     <li><a class="{{ Route::is('admin.category.index') ? 'active' : '' }}" href="{{ route('admin.category.index') }}">Category</a></li>
                     <li><a class="{{ Route::is('admin.unit.index') ? 'active' : '' }}" href="{{ route('admin.unit.index') }}">Units</a></li>
                     <li><a class="{{ Route::is('admin.brand*') ? 'active' : '' }}" href="{{ route('admin.brand.index') }}">Brands</a></li>
