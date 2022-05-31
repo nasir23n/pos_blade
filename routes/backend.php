@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\UnitController;
+use App\Http\Controllers\PaymentStatusController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,6 +50,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/{payment_method}/edit/', [PaymentMethodController::class, 'edit'])->name('edit');
         Route::post('/{payment_method}/update/', [PaymentMethodController::class, 'update'])->name('update');
         Route::delete('/{payment_method}/delete/', [PaymentMethodController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'payment_status.', 'prefix' => 'payment_status'], function() {
+        Route::get('/index', [PaymentStatusController::class, 'index'])->name('index');
+        Route::get('/create', [PaymentStatusController::class, 'create'])->name('create');
+        Route::post('/store', [PaymentStatusController::class, 'store'])->name('store');
+        Route::get('/{payment_status}/edit/', [PaymentStatusController::class, 'edit'])->name('edit');
+        Route::post('/{payment_status}/update/', [PaymentStatusController::class, 'update'])->name('update');
+        Route::delete('/{payment_status}/delete/', [PaymentStatusController::class, 'delete'])->name('delete');
     });
 
     Route::group(['as' => 'product.', 'prefix' => 'product'], function() {

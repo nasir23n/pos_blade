@@ -39,12 +39,13 @@
                 </ul>
             </li>
             <li class="aside_drop">
-                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.payment_method*')) ? 'active' : '' }}">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.payment_method*') || Route::is('admin.payment_status*')) ? 'active' : '' }}">
                     <i class="aside_icon fa fa-cogs"></i>
                     Settings
                 </a>
                 <ul>
                     <li><a class="{{ Route::is('admin.payment_method.index') ? 'active' : '' }}" href="{{ route('admin.payment_method.index') }}">Payment Method</a></li>
+                    <li><a class="{{ Route::is('admin.payment_status.index') ? 'active' : '' }}" href="{{ route('admin.payment_status.index') }}">Payment Status</a></li>
                 </ul>
             </li>
             {{-- <li class="aside_drop">
