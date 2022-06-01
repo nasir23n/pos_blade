@@ -39,6 +39,16 @@
                 </ul>
             </li>
             <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.purchase*')) ? 'active' : '' }}">
+                    <i class="aside_icon fas fa-shapes"></i>
+                    Purchase
+                </a>
+                <ul>
+                    <li><a class="{{ Route::is('admin.purchase.index') ? 'active' : '' }}" href="{{ route('admin.purchase.index') }}">Purchase List</a></li>
+                    <li><a class="{{ Route::is('admin.purchase.create') ? 'active' : '' }}" href="{{ route('admin.purchase.create') }}">Purchase Create</a></li>
+                </ul>
+            </li>
+            <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.payment_method*') || Route::is('admin.payment_status*')) ? 'active' : '' }}">
                     <i class="aside_icon fa fa-cogs"></i>
                     Settings
@@ -48,6 +58,7 @@
                     <li><a class="{{ Route::is('admin.payment_status.index') ? 'active' : '' }}" href="{{ route('admin.payment_status.index') }}">Payment Status</a></li>
                 </ul>
             </li>
+            
             {{-- <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.brand*') ? 'active' : '' }}">
                     <i class="aside_icon fab fa-canadian-maple-leaf"></i>

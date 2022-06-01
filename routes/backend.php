@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\PurchaseController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\PaymentStatusController;
@@ -77,6 +78,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/{supplier}/edit/', [SupplierController::class, 'edit'])->name('edit');
         Route::post('/{supplier}/update/', [SupplierController::class, 'update'])->name('update');
         Route::delete('/{supplier}/delete/', [SupplierController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'purchase.', 'prefix' => 'purchase'], function() {
+        Route::get('/index', [PurchaseController::class, 'index'])->name('index');
+        Route::get('/filter_product', [PurchaseController::class, 'filterProduct'])->name('filter_product');
+        Route::get('/create', [PurchaseController::class, 'create'])->name('create');
+        Route::post('/store', [PurchaseController::class, 'store'])->name('store');
+        Route::get('/{supplier}/edit/', [PurchaseController::class, 'edit'])->name('edit');
+        Route::post('/{supplier}/update/', [PurchaseController::class, 'update'])->name('update');
+        Route::delete('/{supplier}/delete/', [PurchaseController::class, 'delete'])->name('delete');
     });
 
 
