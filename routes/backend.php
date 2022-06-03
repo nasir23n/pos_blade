@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
@@ -78,6 +79,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/{supplier}/edit/', [SupplierController::class, 'edit'])->name('edit');
         Route::post('/{supplier}/update/', [SupplierController::class, 'update'])->name('update');
         Route::delete('/{supplier}/delete/', [SupplierController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'customer.', 'prefix' => 'customer'], function() {
+        Route::get('/index', [CustomerController::class, 'index'])->name('index');
+        Route::get('/create', [CustomerController::class, 'create'])->name('create');
+        Route::post('/store', [CustomerController::class, 'store'])->name('store');
+        Route::get('/{customer}/edit/', [CustomerController::class, 'edit'])->name('edit');
+        Route::post('/{customer}/update/', [CustomerController::class, 'update'])->name('update');
+        Route::delete('/{customer}/delete/', [CustomerController::class, 'delete'])->name('delete');
     });
 
     Route::group(['as' => 'purchase.', 'prefix' => 'purchase'], function() {
