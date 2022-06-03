@@ -61,6 +61,12 @@ class ProductController extends Controller
                 'purchase_price' => $request->purchase_price,
                 'updated_by' => auth()->user()->id,
             ]);
+            $product->stock()->create([
+                'available_qty' => 0,
+                'purchased_qty' => 0,
+                'sold_qty' => 0,
+            ]);
+
             if ($request->hasFile('image')) {
                 $this->upload_file($request->image, $product, 'image', 'product/');
             }

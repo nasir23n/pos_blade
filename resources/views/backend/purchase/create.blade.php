@@ -10,6 +10,26 @@
             grid-gap: 10px;
             margin: 20px 0;
         }
+        @media (max-width: 992px) {
+            .product_grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 700px) {
+            .product_grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 470px) {
+            .product_grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 360px) {
+            .product_grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
         .product_grid .item.active {
             background: #cfe2ff !important;
         }
@@ -87,7 +107,7 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label for="date" class="form-label">Date</label>
-                        <input type="date" name="date" class="form-control" form="purchase_form" id="date" required>
+                        <input type="date" name="date" class="form-control" form="purchase_form" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date" required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -143,13 +163,13 @@
                           </div>
                           <label class="control-label text-success">0</label>
                         </li> --}}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Other Charges</div>
                           </div>
                           <input type="number" class="form-control" form="purchase_form" id="other_charges_input" name="other_charges_input" value="0" style="max-width: 200px;" min="0">
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <li class="list-group-item d-md-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Discount All</div>
                           </div>
@@ -159,7 +179,7 @@
                               <option value="Per">Per%</option>
                           </select>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Note</div>
                           </div>
@@ -213,10 +233,12 @@
                     <div class="col-md-6 mb-2">
                         <label for="payment_method" class="form-label">Payment Method</label>
                         <select class="form-select" form="purchase_form" id="payment_method" name="payment_method">
-                            <option value="Cash">Cash</option>
-                            <option value="Card">Card</option>
-                            <option value="Paytm">Paytm</option>
-                            <option value="Finance">Finance</option>
+                            @foreach ($payment_methods as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                                {{-- <option value="Card">Card</option>
+                                <option value="Paytm">Bksh</option>
+                                <option value="Finance">Nogod</option> --}}
                         </select>
                     </div>
                 </div>
@@ -287,7 +309,7 @@ function add_item(info) {
                 <input class="form-control sell_price" form="purchase_form" type="number" name="sell_price[]" value="${info.sell_price}" min="0">
             </td>
             <td>
-                <input type="number" form="purchase_form" class="form-control purchase_price" name="purchase_price[]" value="${info.sell_price}" min="0">
+                <input type="number" form="purchase_form" class="form-control purchase_price" name="purchase_price[]" value="${info.purchase_price}" min="0">
             </td>
             <td>
                 <input type="number" form="purchase_form" name="quantity[]" value="1" class="form-control quantity" min="0">

@@ -43,4 +43,7 @@ class Product extends Model
     public function unit() {
         return $this->belongsTo(Unit::class);
     }
+    public function stock() {
+        return $this->hasOne(Stock::class);
+    }
 }

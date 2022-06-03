@@ -23,4 +23,16 @@ class Purchase extends Model
     public function details() {
         return $this->hasMany(PurchaseDetails::class);
     }
+
+    public function payment() {
+        return $this->morphMany(Payment::class, 'payable');
+    }
+
+    public function supplier() {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function creator() {
+        return $this->belongsTo(Admin::class, 'created_by', 'id');
+    }
 }

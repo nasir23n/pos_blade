@@ -14,6 +14,7 @@
                 'id' => $item->id,
                 'name' => $item->name,
                 'sell_price' => $item->latest_price->sell_price,
+                'purchase_price' => $item->latest_price->purchase_price,
                 'image' => $item->image,
             ];
         @endphp
