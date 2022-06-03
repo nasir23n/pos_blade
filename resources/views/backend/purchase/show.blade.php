@@ -3,7 +3,7 @@
     <div class="col-sm-6 invoice-col">
         <i>Supplier Details</i>
         <address>
-            <strong>Khush Fashion Palace</strong><br>
+            <strong>{{ $purchase->supplier->name }}</strong><br>
             AP: Ankali,
             City:Belgaum<br>
             Phone: 8888888888,

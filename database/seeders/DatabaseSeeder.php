@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory(5)->create();
         \App\Models\Unit::factory(5)->create();
         \App\Models\Supplier::factory(5)->create();
+        \App\Models\Customer::factory(5)->create();
 
         \App\Models\Product::factory(5)->create();
         $this->call(PriceSeeder::class);
