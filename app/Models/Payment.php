@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PurchaseDetails extends Model
+class Payment extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'purchase_id',
-        'product_id',
-        'quantity',
-        'price_id',
-        'total',
+        'amount',
+        'payment_method_id',
+        'note',
+        'payable',
+        'created_by',
+        // 'payment_status',
     ];
 }

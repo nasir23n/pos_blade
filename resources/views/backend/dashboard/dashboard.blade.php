@@ -5,7 +5,7 @@
 <h3 class="content_header">Dashboard</h3>
 <div class="row">
     <div class="col-md-12 mb-4">
-        <button id="nl_modal" class="btn btn-primary">modal</button>
+        {{-- <button id="nl_modal" class="btn btn-primary">modal</button> --}}
     </div>
 </div>
 
