@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\Brand::factory(500)->create();
         // \App\Models\User::factory(10)->create();
-        // $this->call(AdminSeeder::class);
+         $this->call(AdminSeeder::class);
     }
 }

@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
     {
         Admin::create([
             'name' => 'Nasrullah',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin2@gmail.com',
             'admin_type' => 'president',
             'designation' => 'president',
             'phone' => '01763312883',

@@ -25,6 +25,12 @@
                     Suppliers
                 </a>
             </li>
+            <li>
+                <a class="{{ Route::is('admin.customer*') ? 'active' : '' }}" href="{{ route('admin.customer.index') }}">
+                    <i class="aside_icon fa fa-users"></i>
+                    Customers
+                </a>
+            </li>
             <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.category.index') || Route::is('admin.product*') || Route::is('admin.brand*') || Route::is('admin.unit.index')) ? 'active' : '' }}">
                     <i class="aside_icon fa fa-cubes"></i>
