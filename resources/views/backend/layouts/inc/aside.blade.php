@@ -19,19 +19,46 @@
                     Deshboard
                 </a>
             </li>
+            <li>
+                <a class="{{ Route::is('admin.supplier*') ? 'active' : '' }}" href="{{ route('admin.supplier.index') }}">
+                    <i class="aside_icon fa fa-users"></i>
+                    Suppliers
+                </a>
+            </li>
             <li class="aside_drop">
-                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.category.index') || Route::is('admin.brand*') || Route::is('admin.unit.index')) ? 'active' : '' }}">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.category.index') || Route::is('admin.product*') || Route::is('admin.brand*') || Route::is('admin.unit.index')) ? 'active' : '' }}">
                     <i class="aside_icon fa fa-cubes"></i>
                     Products
                 </a>
                 <ul>
-                    <li><a class="" href="">Product List</a></li>
-                    <li><a class="" href="">Product Create</a></li>
+                    <li><a class="{{ Route::is('admin.product.index') ? 'active' : '' }}" href="{{ route('admin.product.index') }}">Product List</a></li>
+                    <li><a class="{{ Route::is('admin.product.create') ? 'active' : '' }}" href="{{ route('admin.product.create') }}">Product Create</a></li>
                     <li><a class="{{ Route::is('admin.category.index') ? 'active' : '' }}" href="{{ route('admin.category.index') }}">Category</a></li>
                     <li><a class="{{ Route::is('admin.unit.index') ? 'active' : '' }}" href="{{ route('admin.unit.index') }}">Units</a></li>
                     <li><a class="{{ Route::is('admin.brand*') ? 'active' : '' }}" href="{{ route('admin.brand.index') }}">Brands</a></li>
                 </ul>
             </li>
+            <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.purchase*')) ? 'active' : '' }}">
+                    <i class="aside_icon fas fa-shapes"></i>
+                    Purchase
+                </a>
+                <ul>
+                    <li><a class="{{ Route::is('admin.purchase.index') ? 'active' : '' }}" href="{{ route('admin.purchase.index') }}">Purchase List</a></li>
+                    <li><a class="{{ Route::is('admin.purchase.create') ? 'active' : '' }}" href="{{ route('admin.purchase.create') }}">Purchase Create</a></li>
+                </ul>
+            </li>
+            <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.payment_method*') || Route::is('admin.payment_status*')) ? 'active' : '' }}">
+                    <i class="aside_icon fa fa-cogs"></i>
+                    Settings
+                </a>
+                <ul>
+                    <li><a class="{{ Route::is('admin.payment_method.index') ? 'active' : '' }}" href="{{ route('admin.payment_method.index') }}">Payment Method</a></li>
+                    <li><a class="{{ Route::is('admin.payment_status.index') ? 'active' : '' }}" href="{{ route('admin.payment_status.index') }}">Payment Status</a></li>
+                </ul>
+            </li>
+            
             {{-- <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.brand*') ? 'active' : '' }}">
                     <i class="aside_icon fab fa-canadian-maple-leaf"></i>
