@@ -80,7 +80,7 @@ class PurchaseController extends Controller
                 'total_price' => $total,
                 'due_amount' => $total - ($request->amount ? $request->amount : 0)
             ]);
-
+ 
             if ($request->amount) {
                 $purchase->payment()->create([
                     'amount' => $request->amount,
@@ -94,5 +94,10 @@ class PurchaseController extends Controller
         });
         // dd($request->all());
         return back()->with('success', 'Purchase Create Successfully');
+    }
+
+    public function show(Purchase $purchase) {
+        // dd($purchase);
+        return view('backend.purchase.show', compact('purchase'));
     }
 }

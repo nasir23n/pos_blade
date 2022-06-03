@@ -9,7 +9,7 @@
 <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Purchase List</h5>
-        <button class=" btn btn-primary" id="add_category"><i class="fa fa-plus"></i></button>
+        <a href="{{ route('admin.purchase.create') }}" class=" btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Create</a>
     </div>
     <div class="card-body table-responsive">
         <table class="table">
@@ -40,7 +40,7 @@
                         <td>{{ $item->creator->designation }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="border-radius: 4px; overflow: hidden;">
-                                <button type="button" class="btn btn-sm btn-warning edit" link={{ route('admin.category.edit', $item) }}><i class="fa fa-eye"></i></button>
+                                <button type="button" class="btn btn-sm btn-warning view_purchase" link={{ route('admin.purchase.show', $item) }}><i class="fa fa-eye"></i></button>
                                 <button type="button" class="btn btn-sm btn-primary edit" link={{ route('admin.category.edit', $item) }}><i class="fa fa-pen"></i></button>
                                 <form action="{{ route('admin.category.delete', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
                                     @csrf
@@ -61,11 +61,11 @@
 @push('js')
 <script>
 $(function() {
-    $('.edit').click(function(e) {
+    $('.view_purchase').click(function(e) {
         let $url = $(this).attr('link');
         NL_Modal.open({
-            title: 'Edit Brand',
-            size: 'md',
+            title: 'Purchase invoice',
+            size: 'lg',
             preload: true,
             body: function(body_class, obj) {
                 $.ajax({
@@ -78,22 +78,22 @@ $(function() {
             }
         });
     });
-    $('#add_category').click(function() {
-        NL_Modal.open({
-            title: 'Create Category',
-            size: 'md',
-            preload: true,
-            body: function(body_class, obj) {
-                $.ajax({
-                    type: 'get',
-                    url: '{{ route("admin.category.create") }}',
-                    success: function(data) {
-                        body_class.html(data);
-                    }
-                });
-            }
-        });
-    });
+    // $('#add_category').click(function() {
+    //     NL_Modal.open({
+    //         title: 'Create Category',
+    //         size: 'md',
+    //         preload: true,
+    //         body: function(body_class, obj) {
+    //             $.ajax({
+    //                 type: 'get',
+    //                 url: '{{ route("admin.category.create") }}',
+    //                 success: function(data) {
+    //                     body_class.html(data);
+    //                 }
+    //             });
+    //         }
+    //     });
+    // });
 });
 </script>
 @endpush

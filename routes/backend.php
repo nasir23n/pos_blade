@@ -85,6 +85,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/filter_product', [PurchaseController::class, 'filterProduct'])->name('filter_product');
         Route::get('/create', [PurchaseController::class, 'create'])->name('create');
         Route::post('/store', [PurchaseController::class, 'store'])->name('store');
+        Route::get('/{supplier}/show/', [PurchaseController::class, 'show'])->name('show');
         Route::get('/{supplier}/edit/', [PurchaseController::class, 'edit'])->name('edit');
         Route::post('/{supplier}/update/', [PurchaseController::class, 'update'])->name('update');
         Route::delete('/{supplier}/delete/', [PurchaseController::class, 'delete'])->name('delete');
