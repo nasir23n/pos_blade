@@ -8,8 +8,11 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\PurchaseController;
+use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\UnitController;
+use App\Http\Controllers\ExpenceCategoryController;
+use App\Http\Controllers\ExpenceController;
 use App\Http\Controllers\PaymentStatusController;
 use Illuminate\Support\Facades\Route;
 
@@ -95,11 +98,53 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/filter_product', [PurchaseController::class, 'filterProduct'])->name('filter_product');
         Route::get('/create', [PurchaseController::class, 'create'])->name('create');
         Route::post('/store', [PurchaseController::class, 'store'])->name('store');
-        Route::get('/{supplier}/show/', [PurchaseController::class, 'show'])->name('show');
-        Route::get('/{supplier}/edit/', [PurchaseController::class, 'edit'])->name('edit');
-        Route::post('/{supplier}/update/', [PurchaseController::class, 'update'])->name('update');
-        Route::delete('/{supplier}/delete/', [PurchaseController::class, 'delete'])->name('delete');
+        Route::get('/{purchase}/show/', [PurchaseController::class, 'show'])->name('show');
+        Route::get('/{purchase}/edit/', [PurchaseController::class, 'edit'])->name('edit');
+        Route::post('/{purchase}/update/', [PurchaseController::class, 'update'])->name('update');
+        Route::delete('/{purchase}/delete/', [PurchaseController::class, 'delete'])->name('delete');
     });
+
+    Route::group(['as' => 'sales.', 'prefix' => 'sales'], function() {
+        Route::get('/index', [SaleController::class, 'index'])->name('index');
+        // Route::get('/filter_product', [SaleController::class, 'filterProduct'])->name('filter_product');
+        Route::get('/create', [SaleController::class, 'create'])->name('create');
+        Route::post('/store', [SaleController::class, 'store'])->name('store');
+        Route::get('/{sale}/show/', [SaleController::class, 'show'])->name('show');
+        Route::get('/{sale}/edit/', [SaleController::class, 'edit'])->name('edit');
+        // Route::post('/{purchase}/update/', [SaleController::class, 'update'])->name('update');
+        Route::delete('/{sale}/delete/', [SaleController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'expence.', 'prefix' => 'expence'], function() {
+        Route::get('/index', [SaleController::class, 'index'])->name('index');
+        // Route::get('/filter_product', [SaleController::class, 'filterProduct'])->name('filter_product');
+        Route::get('/create', [SaleController::class, 'create'])->name('create');
+        Route::post('/store', [SaleController::class, 'store'])->name('store');
+        Route::get('/{sale}/show/', [SaleController::class, 'show'])->name('show');
+        Route::get('/{sale}/edit/', [SaleController::class, 'edit'])->name('edit');
+        // Route::post('/{purchase}/update/', [SaleController::class, 'update'])->name('update');
+        Route::delete('/{sale}/delete/', [SaleController::class, 'delete'])->name('delete');
+    });
+
+
+    Route::group(['as' => 'expence_category.', 'prefix' => 'expence_category'], function() {
+        Route::get('/index', [ExpenceCategoryController::class, 'index'])->name('index');
+        Route::get('/create', [ExpenceCategoryController::class, 'create'])->name('create');
+        Route::post('/store', [ExpenceCategoryController::class, 'store'])->name('store');
+        Route::get('/{expence_category}/edit/', [ExpenceCategoryController::class, 'edit'])->name('edit');
+        Route::post('/{expence_category}/update/', [ExpenceCategoryController::class, 'update'])->name('update');
+        Route::delete('/{expence_category}/delete/', [ExpenceCategoryController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'expence.', 'prefix' => 'expence'], function() {
+        Route::get('/index', [ExpenceController::class, 'index'])->name('index');
+        Route::get('/create', [ExpenceController::class, 'create'])->name('create');
+        Route::post('/store', [ExpenceController::class, 'store'])->name('store');
+        Route::get('/{expence}/edit/', [ExpenceController::class, 'edit'])->name('edit');
+        Route::post('/{expence}/update/', [ExpenceController::class, 'update'])->name('update');
+        Route::delete('/{expence}/delete/', [ExpenceController::class, 'delete'])->name('delete');
+    });
+
 
 
 

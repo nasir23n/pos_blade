@@ -55,6 +55,26 @@
                 </ul>
             </li>
             <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.sales*')) ? 'active' : '' }}">
+                    <i class="aside_icon fas fa-shopping-bag"></i>
+                    Sales
+                </a>
+                <ul>
+                    <li><a class="{{ Route::is('admin.sales.index') ? 'active' : '' }}" href="{{ route('admin.sales.index') }}">Sales List</a></li>
+                    <li><a class="{{ Route::is('admin.sales.create') ? 'active' : '' }}" href="{{ route('admin.sales.create') }}">Sales Create</a></li>
+                </ul>
+            </li>
+            <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.expence_category*') || Route::is('admin.expence*')) ? 'active' : '' }}">
+                    <i class="aside_icon fas fa-donate"></i>
+                    Expence
+                </a>
+                <ul>
+                    <li><a class="{{ Route::is('admin.expence_category.index') ? 'active' : '' }}" href="{{ route('admin.expence_category.index') }}">Expence Category</a></li>
+                    <li><a class="{{ Route::is('admin.expence.index') ? 'active' : '' }}" href="{{ route('admin.expence.index') }}">Expences</a></li>
+                </ul>
+            </li>
+            <li class="aside_drop">
                 <a href="javascript:void(0)" class="aside_drop_btn {{ (Route::is('admin.payment_method*') || Route::is('admin.payment_status*')) ? 'active' : '' }}">
                     <i class="aside_icon fa fa-cogs"></i>
                     Settings
