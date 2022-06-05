@@ -96,6 +96,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
     Route::group(['as' => 'purchase.', 'prefix' => 'purchase'], function() {
         Route::get('/index', [PurchaseController::class, 'index'])->name('index');
         Route::get('/filter_product', [PurchaseController::class, 'filterProduct'])->name('filter_product');
+        Route::get('/get_products', [PurchaseController::class, 'get_products'])->name('get_products');
         Route::get('/create', [PurchaseController::class, 'create'])->name('create');
         Route::post('/store', [PurchaseController::class, 'store'])->name('store');
         Route::get('/{purchase}/show/', [PurchaseController::class, 'show'])->name('show');
@@ -117,8 +118,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
     });
 
     Route::group(['as' => 'expence.', 'prefix' => 'expence'], function() {
-        Route::get('/index', [SaleController::class, 'index'])->name('index');
-        // Route::get('/filter_product', [SaleController::class, 'filterProduct'])->name('filter_product');
+        Route::get('/index', [SaleController::class, 'index'])->name('index'); 
         Route::get('/create', [SaleController::class, 'create'])->name('create');
         Route::post('/store', [SaleController::class, 'store'])->name('store');
         Route::get('/{sale}/show/', [SaleController::class, 'show'])->name('show');

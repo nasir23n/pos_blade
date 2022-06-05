@@ -271,7 +271,7 @@ $('#select_product').click(function() {
         body: function(body_class, obj) {
             $.ajax({
                 type: 'get',
-                url: `{{ route('admin.purchase.filter_product') }}`,
+                url: `{{ route('admin.purchase.get_products') }}`,
                 success: function(data) {
                     body_class.html(data);
                     // body_class.prepend(`<div class="my-3" id="notify_wrap"></div>`);

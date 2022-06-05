@@ -263,8 +263,8 @@
                     {{ session('status') }}
                 </div>
             @endif 
-            <input class="fld" type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}" autofocus required>
-            <input style="margin-bottom:20px;" class="fld" type="password" name="password" placeholder="Password" required>
+            <input class="fld" type="text" name="phone" placeholder="Phone" value="01700000000" autofocus required>
+            <input style="margin-bottom:20px;" class="fld" type="password" name="password" value="password" placeholder="Password" required>
             <div style="margin-bottom: 20px;">
                 <input class="remember" type="checkbox" id="remember" name="remember" checked>
                 <label for="remember" class="fre">

@@ -27,9 +27,14 @@ class PurchaseController extends Controller
         return view('backend.purchase.create', $this->data);
     }
 
-    public function filterProduct(Request $request) {
+    public function get_products(Request $request) {
         $products = Product::with('latest_price')->paginate(5);
         return view('backend.purchase.filter_product', compact('products'));
+    }
+
+    public function filterProduct(Request $request) {
+        $products = Product::with('latest_price')->where('name', 'like', '%'.$request->name.'%')->paginate(5);
+        return view('backend.purchase.product_grid', compact('products'));
     }
 
     public function store(Request $request) {
@@ -76,6 +81,7 @@ class PurchaseController extends Controller
                 ]);
                 $total += $sub_total;
             }
+
             $purchase->update([
                 'total_price' => $total,
                 'due_amount' => $total - ($request->amount ? $request->amount : 0)
