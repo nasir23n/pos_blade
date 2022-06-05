@@ -164,6 +164,7 @@
 .select2-container .select2-selection--single .select2-selection__rendered {
 	padding-right:10px
 }
+
     </style>
     {{-- @include('backend.global.alert') --}}
     {{-- <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show" role="alert">
@@ -327,9 +328,6 @@
                             @foreach ($payment_methods as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
-                                {{-- <option value="Card">Card</option>
-                                <option value="Paytm">Bksh</option>
-                                <option value="Finance">Nogod</option> --}}
                         </select>
                     </div>
                 </div>
@@ -368,10 +366,9 @@ $('#select_product').click(function() {
         body: function(body_class, obj) {
             $.ajax({
                 type: 'get',
-                url: `{{ route('admin.purchase.filter_product') }}`,
+                url: `{{ route('admin.sales.get_products') }}`,
                 success: function(data) {
                     body_class.html(data);
-                    // body_class.prepend(`<div class="my-3" id="notify_wrap"></div>`);
                 }
             });
         }
@@ -386,14 +383,10 @@ $('#amount').on('input change', function(e) {
             $(this).val(max_val);
             alert('Payment could not be more then total amount');
         }
-        // if (Number($(this).val()) > max_val) {
-        //     return false;
-        //     console.log(max_val);
-        // }
     }
 });
 
-function add_item(info) {
+function add_item(info) { 
     item_ids.push(info.id);
     let html = `
         <tr>
@@ -406,7 +399,7 @@ function add_item(info) {
                 <input class="form-control sell_price disabled" form="sales_form" type="number" name="sell_price[]" value="${info.sell_price}" min="0" disabled>
             </td> 
             <td>
-                <input type="number" form="sales_form" name="quantity[]" value="1" class="form-control quantity" min="0">
+                <input type="number" form="sales_form" name="quantity[]" value="1" class="form-control quantity" min="0" max="${info.available_qty}">
             </td>
             <td>
                 <input type="number" class="form-control total_amount disabled" name="total_amount[]" value="${info.sell_price}" disabled>
@@ -423,6 +416,20 @@ function add_item(info) {
 }
 function reactors() {
     $('.quantity, .sell_price, #discount_type, #other_charges_input, #discount_all_input').on('input change', function() {
+        calculate_total();
+    });
+    $('.quantity').on('input change', function(e) {
+        let max = Number($(this).attr('max'));
+        let min = Number($(this).attr('min'));
+        let val = Number($(this).val());
+        if (val >= max) {
+            e.preventDefault();
+            $(this).val(max);
+        }
+        if (val <= min) {
+            e.preventDefault();
+            $(this).val(min);
+        }
         calculate_total();
     });
 }

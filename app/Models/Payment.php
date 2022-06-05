@@ -17,4 +17,8 @@ class Payment extends Model
         'created_by',
         // 'payment_status',
     ];
+
+    public function payment_method() {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }

@@ -16,6 +16,8 @@ class Sale extends Model
         'other_charge',
         'date',
         'paid_amount',
+        'discount_all',
+        'discount_type',
         'due_amount',
         'sales_status',
     ];

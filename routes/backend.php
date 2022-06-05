@@ -106,7 +106,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
 
     Route::group(['as' => 'sales.', 'prefix' => 'sales'], function() {
         Route::get('/index', [SaleController::class, 'index'])->name('index');
-        // Route::get('/filter_product', [SaleController::class, 'filterProduct'])->name('filter_product');
+        Route::get('/filter_product', [SaleController::class, 'filterProduct'])->name('filter_product');
+        Route::get('/get_products', [SaleController::class, 'get_products'])->name('get_products');
         Route::get('/create', [SaleController::class, 'create'])->name('create');
         Route::post('/store', [SaleController::class, 'store'])->name('store');
         Route::get('/{sale}/show/', [SaleController::class, 'show'])->name('show');

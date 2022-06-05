@@ -28,6 +28,22 @@
 
 	<script src="{{ asset('backend/common/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('backend/assets/js/app.js') }}"></script>
-
+	<script>
+		let theme = localStorage.getItem('theme');
+		// let theme = localStorage.setItem('theme', 'dark');
+		if (theme) {
+			$('body').addClass('dark');
+			$('#toggle_dark').attr('checked', 'true');
+		}
+		$('#toggle_dark').on('change', function() {
+			// console.log('some');
+			if (localStorage.getItem('theme')) {
+				localStorage.removeItem('theme');
+			} else {
+				localStorage.setItem('theme', 'dark');
+			}
+			$('body').toggleClass('dark');
+		});
+	</script>
 	@stack('js')
 </html>

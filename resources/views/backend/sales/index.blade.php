@@ -40,7 +40,7 @@
                         <td>{{ $item->creator->designation }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="border-radius: 4px; overflow: hidden;">
-                                <button type="button" class="btn btn-sm btn-warning view_purchase" link={{ route('admin.sales.show', $item) }}><i class="fa fa-eye"></i></button>
+                                <button type="button" class="btn btn-sm btn-warning view_sales" link={{ route('admin.sales.show', $item) }}><i class="fa fa-eye"></i></button>
                                 <button type="button" class="btn btn-sm btn-primary edit" link={{ route('admin.sales.edit', $item) }}><i class="fa fa-pen"></i></button>
                                 <form action="{{ route('admin.sales.delete', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
                                     @csrf
@@ -61,10 +61,10 @@
 @push('js')
 <script>
 $(function() {
-    $('.view_purchase').click(function(e) {
+    $('.view_sales').click(function(e) {
         let $url = $(this).attr('link');
         NL_Modal.open({
-            title: 'Purchase invoice',
+            title: 'Sales invoice',
             size: 'lg',
             preload: true,
             body: function(body_class, obj) {

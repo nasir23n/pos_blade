@@ -22,6 +22,15 @@ class SaleController extends Controller
         return view('backend.sales.create', $this->data);
     }
 
+    public function get_products(Request $request) {
+        $products = Product::with('latest_price')->paginate(5);
+        return view('backend.sales.filter_product', compact('products'));
+    }
+
+    public function filterProduct(Request $request) {
+        $products = Product::with('latest_price')->where('name', 'like', '%'.$request->name.'%')->paginate(5);
+        return view('backend.sales.product_grid', compact('products'));
+    }
 
     public function store(Request $request) {
         $request->validate([
@@ -37,6 +46,8 @@ class SaleController extends Controller
                 'total_price' => 0,
                 'other_charge' => $request->other_charges_input,
                 'date' => $request->date,
+                'discount_all' => $request->discount_all_input,
+                'discount_type' => $request->discount_type,
                 'paid_amount' => $request->amount ? $request->amount : 0,
                 'due_amount' => 0,
                 'sell_status' => $request->sell_status,
@@ -68,6 +79,14 @@ class SaleController extends Controller
                 ]);
                 $total += $sub_total;
             }
+            $total += $request->other_charges_input;
+            if ($request->discount_type == 'Fixed') {
+                $total =  $total - $request->discount_all_input;
+            }
+            else if ($request->discount_type == 'Per') {
+                $total =  $total - (($request->discount_all_input / 100) * $total);
+            }
+
             $sales->update([
                 'total_price' => $total,
                 'due_amount' => $total - ($request->amount ? $request->amount : 0)
@@ -86,5 +105,9 @@ class SaleController extends Controller
         });
         // dd($request->all());
         return back()->with('success', 'Sales Create Successfully');
+    }
+
+    public function show(Sale $sale) {
+        return view('backend.sales.show', compact('sale'));
     }
 }

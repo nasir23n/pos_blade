@@ -140,5 +140,13 @@
             </li>
             <li><a href="javascript:void(0)">More Class</a></li> --}}
         </ul>
+        <div class="py-3 d-flex justify-content-center">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="toggle_dark">
+                <label class="form-check-label" for="toggle_dark" style="user-select: none;">
+                  Toggle Dark Theme
+                </label>
+              </div>
+        </div>
     </div>
 </div>
