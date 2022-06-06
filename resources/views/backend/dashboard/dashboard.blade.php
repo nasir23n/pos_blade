@@ -8,7 +8,66 @@
         {{-- <button id="nl_modal" class="btn btn-primary">modal</button> --}}
     </div>
 </div>
+<div class="widget_wrap">
+    <div class="card text-bg-blue-700 shadow">
+        <div class="card-body widget_body">
+            <div class="content">
+                <p>Total customer</p>
+                <strong>200 customers</strong>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+        </div>
+        <div class="card-footer widget_footer">
+            <a href="#">All customer  &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+        </div>
+    </div>
+    <div class="card text-bg-orange-500 shadow">
+        <div class="card-body widget_body">
+            <div class="content">
+                <p>Total servicing</p>
+                <strong>501210TK</strong>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+        </div>
+        <div class="card-footer widget_footer">
+            <a href="#">All servicing  &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+        </div>
+    </div>
+    <div class="card text-bg-purple-600 shadow">
+        <div class="card-body widget_body">
+            <div class="content">
+                <p>Total servicing</p>
+                <strong>501210TK</strong>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+        </div>
+        <div class="card-footer widget_footer">
+            <a href="#">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+        </div>
+    </div>
+    <div class="card text-bg-green-700 shadow">
+        <div class="card-body widget_body">
+            <div class="content">
+                <p>Total servicing</p>
+                <strong>501210TK</strong>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+        </div>
+        <div class="card-footer widget_footer">
+            <a href="#">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+        </div>
+    </div>
+</div>
 
+{{-- 
 <div class="row mb-3 gy-4 gx-4">
     
     <div class="col-xl-4 col-md-6 col-sm-6">
@@ -102,7 +161,7 @@
         </div>
     </div>
 
-</div>
+</div> --}}
 
 {{-- 
 <div class="row g-4 my-3">

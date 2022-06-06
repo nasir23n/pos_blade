@@ -3,13 +3,13 @@
     <a href="{{ route('admin.dashboard') }}" class="aside_top"> ADMIN PANEL </a>
 
     <div class="aside_fixed_part">
-        <div class="aside_profile">
+        <div class="aside_profile mb-2" style="border-bottom: 1px solid var(--l_gr_active);">
             <div class="profile_image">
-                <img src="{{ asset('backend/image/logo.jpg') }}" alt="U" />
+                <img src="{{ asset('backend/image/logo.jpg') }}" alt="U" style="width: 40px;height:40px;" />
             </div>
             <div class="info">
-                <h4 class="name">{{ auth()->user()->name }}</h4>
-                <p>{{ auth()->user()->email }}</p>
+                <p class="name">{{ auth()->user()->name }}</p>
+                {{-- <p>{{ auth()->user()->email }}</p> --}}
             </div>
         </div>
         <ul class="aside_links">
@@ -140,13 +140,13 @@
             </li>
             <li><a href="javascript:void(0)">More Class</a></li> --}}
         </ul>
-        <div class="py-3 d-flex justify-content-center">
+        {{-- <div class="py-3 d-flex justify-content-center">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="toggle_dark">
                 <label class="form-check-label" for="toggle_dark" style="user-select: none;">
                   Toggle Dark Theme
                 </label>
               </div>
-        </div>
+        </div> --}}
     </div>
 </div>

@@ -320,16 +320,6 @@ $theme-colors: (
   "dark":       $dark
 ) !default;
 // scss-docs-end theme-colors-map
-
-// Characters which are escaped by the escape-svg function
-$escaped-characters: (
-  ("<", "%3c"),
-  (">", "%3e"),
-  ("#", "%23"),
-  ("(", "%28"),
-  (")", "%29"),
-) !default;
-
 // all color array 
 // this code is added by https://github.com/nasir23n
 // grays: $grays,
@@ -344,14 +334,21 @@ $all_colors: (
   greens: $greens,
   cyans: $cyans,
 ) !default;
-
+// Characters which are escaped by the escape-svg function
+$escaped-characters: (
+  ("<", "%3c"),
+  (">", "%3e"),
+  ("#", "%23"),
+  ("(", "%28"),
+  (")", "%29"),
+) !default;
 
 // Options
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
 $enable-caret:                true !default;
-$enable-rounded:              false !default;
+$enable-rounded:              true !default;
 $enable-shadows:              false !default;
 $enable-gradients:            false !default;
 $enable-transitions:          true !default;
@@ -676,7 +673,7 @@ $table-cell-padding-x:        .5rem !default;
 $table-cell-padding-y-sm:     .25rem !default;
 $table-cell-padding-x-sm:     .25rem !default;
 
-$table-cell-vertical-align:   middle !default;
+$table-cell-vertical-align:   top !default;
 
 $table-color:                 var(--#{$prefix}body-color) !default;
 $table-bg:                    transparent !default;
@@ -735,13 +732,11 @@ $input-btn-font-family:       null !default;
 $input-btn-font-size:         $font-size-base !default;
 $input-btn-line-height:       $line-height-base !default;
 
-// $input-btn-focus-width:         .25rem !default;
-$input-btn-focus-width:         0rem !default;
+$input-btn-focus-width:         .25rem !default;
 $input-btn-focus-color-opacity: .25 !default;
 $input-btn-focus-color:         rgba($component-active-bg, $input-btn-focus-color-opacity) !default;
 $input-btn-focus-blur:          0 !default;
-$input-btn-focus-box-shadow:    none !default;
-// $input-btn-focus-box-shadow:    0 0 $input-btn-focus-blur $input-btn-focus-width $input-btn-focus-color !default;
+$input-btn-focus-box-shadow:    0 0 $input-btn-focus-blur $input-btn-focus-width $input-btn-focus-color !default;
 
 $input-btn-padding-y-sm:      .25rem !default;
 $input-btn-padding-x-sm:      .5rem !default;
@@ -1397,7 +1392,7 @@ $badge-font-weight:                 $font-weight-bold !default;
 $badge-color:                       $white !default;
 $badge-padding-y:                   .35em !default;
 $badge-padding-x:                   .65em !default;
-$badge-border-radius:               3px !default;
+$badge-border-radius:               $border-radius !default;
 // scss-docs-end badge-variables
 
 
