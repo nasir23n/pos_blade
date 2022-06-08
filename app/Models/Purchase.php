@@ -15,6 +15,8 @@ class Purchase extends Model
         'total_price',
         'other_charge',
         'date',
+        'discount_all',
+        'discount_type',
         'paid_amount',
         'due_amount',
         'process_status',

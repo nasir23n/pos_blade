@@ -58,6 +58,16 @@ window.addEventListener('click', function(event){
 // -------------------------
 /* dropdown end-----------------*/
 
+function print_div(target_id) {
+    var printContents = document.getElementById(target_id).innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+}
 
 
 // Waves effect

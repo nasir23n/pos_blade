@@ -22,6 +22,8 @@ return new class extends Migration
             $table->double('other_charge');
             $table->date('date');
             // $table->foreignId('payment_id')->constrained();
+            $table->double('discount_all')->nullable();
+            $table->enum('discount_type', ['Fixed', 'Per'])->comment('Per=Percentage');
             $table->double('paid_amount');
             $table->double('due_amount');
             $table->enum('purchase_status', ['Pending', 'Received', 'Complete']);

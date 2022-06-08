@@ -40,12 +40,12 @@
                         <td>{{ $item->creator->designation }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="border-radius: 4px; overflow: hidden;">
-                                <button type="button" class="btn btn-sm btn-warning view_purchase" link={{ route('admin.purchase.show', $item) }}><i class="fa fa-eye"></i></button>
-                                <button type="button" class="btn btn-sm btn-primary edit" link={{ route('admin.category.edit', $item) }}><i class="fa fa-pen"></i></button>
-                                <form action="{{ route('admin.category.delete', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
+                                <a class="btn btn-sm btn-warning view_purchase" href={{ route('admin.purchase.show', $item) }}><i class="fa fa-eye"></i></a>
+                                <a href="{{ route('admin.purchase.edit', $item) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                                <button type="submit" form="form{{ $item->id }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>                                
+                                <form id="form{{ $item->id }}" action="{{ route('admin.category.delete', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>                                
                                 </form>
                             </div>
                         </td>
@@ -60,41 +60,26 @@
 
 @push('js')
 <script>
-$(function() {
-    $('.view_purchase').click(function(e) {
-        let $url = $(this).attr('link');
-        NL_Modal.open({
-            title: 'Purchase invoice',
-            size: 'lg',
-            preload: true,
-            body: function(body_class, obj) {
-                $.ajax({
-                    type: 'get',
-                    url: $url,
-                    success: function(data) {
-                        body_class.html(data);
-                    }
-                });
-            }
-        });
-    });
-    // $('#add_category').click(function() {
-    //     NL_Modal.open({
-    //         title: 'Create Category',
-    //         size: 'md',
-    //         preload: true,
-    //         body: function(body_class, obj) {
-    //             $.ajax({
-    //                 type: 'get',
-    //                 url: '{{ route("admin.category.create") }}',
-    //                 success: function(data) {
-    //                     body_class.html(data);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // });
-});
+// $(function() {
+//     $('.view_purchase').click(function(e) {
+//         e.preventDefault();
+//         let $url = $(this).attr('href');
+//         NL_Modal.open({
+//             title: 'Purchase invoice',
+//             size: 'lg',
+//             preload: true,
+//             body: function(body_class, obj) {
+//                 $.ajax({
+//                     type: 'get',
+//                     url: $url,
+//                     success: function(data) {
+//                         body_class.html(data);
+//                     }
+//                 });
+//             }
+//         });
+//     });
+// });
 </script>
 @endpush
 

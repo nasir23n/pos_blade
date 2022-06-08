@@ -50,6 +50,8 @@ class PurchaseController extends Controller
                 'total_price' => 0,
                 'other_charge' => $request->other_charges_input,
                 'date' => $request->date,
+                'discount_all' => $request->discount_all_input,
+                'discount_type' => $request->discount_type,
                 'paid_amount' => $request->amount ? $request->amount : 0,
                 'due_amount' => 0,
                 'purchase_status' => $request->purchase_status,
@@ -81,6 +83,14 @@ class PurchaseController extends Controller
                 ]);
                 $total += $sub_total;
             }
+            $total += $request->other_charges_input;
+
+            if ($request->discount_type == 'Fixed') {
+                $total =  $total - $request->discount_all_input;
+            }
+            else if ($request->discount_type == 'Per') {
+                $total =  $total - (($request->discount_all_input / 100) * $total);
+            }
 
             $purchase->update([
                 'total_price' => $total,
@@ -99,11 +109,16 @@ class PurchaseController extends Controller
 
         });
         // dd($request->all());
-        return back()->with('success', 'Purchase Create Successfully');
+        return redirect()->route('admin.purchase.index')->with('success', 'Purchase Create Successfully');
     }
 
     public function show(Purchase $purchase) {
-        // dd($purchase);
         return view('backend.purchase.show', compact('purchase'));
+    }
+
+    public function edit(Purchase $purchase) {
+        $suppliers = Supplier::all();
+        $payment_methods = PaymentMethod::all();
+        return view('backend.purchase.edit', compact('purchase', 'suppliers', 'payment_methods'));
     }
 }

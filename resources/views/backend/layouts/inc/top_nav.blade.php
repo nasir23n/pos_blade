@@ -4,7 +4,7 @@
         <span></span>
         <span></span>
     </button>
-    <a href="index.html" class="hidden_home">ADMIN PANEL</a>
+    {{-- <a href="index.html" class="hidden_home">ADMIN PANEL</a> --}}
 
     <div class="d-flex justify-content-between flex-grow-1 align-items-center">
         <div class="drop_container ms-3">
