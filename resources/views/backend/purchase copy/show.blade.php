@@ -8,7 +8,7 @@
             <i class="fa fa-arrow-circle-left"></i>
             Back
         </a>
-        <button class="btn btn-success">
+        <button class="btn btn-success" onclick="print_div('purchase_body')">
             <i class="fa fa-print"></i>
             Print
         </button>
@@ -18,8 +18,6 @@
         </button>
     </div>
 </div>
-
-@include('backend.global.alert')
 
 <div id="purchase_body">
     <div class="card">
@@ -82,12 +80,9 @@
                             $total = 0;
                             $total_unit_price = 0;
                             $total_quantity = 0;
-                            $ids = [];
                         @endphp
-                        
                         @foreach ($purchase->details as $item)
                             @php
-                                array_push($ids, $item->product_id);
                                 $subtotal = $item->product->latest_price->sell_price * $item->quantity;
                                 $total += $subtotal;
                                 $total_unit_price += $item->product->latest_price->sell_price;
@@ -101,7 +96,6 @@
                                 <td>{{ $subtotal }}TK</td>
                             </tr>
                         @endforeach
-                        
                     </tbody>
                     <tfoot>
                         <tr>
@@ -124,6 +118,26 @@
                 <span style="text-transform: capitalize;">&nbsp;{{ num_to_word($total) }}</span>
             </div>
 
+            {{-- <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="bt">
+                            <strong>Received with good condition by</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-7 d-md-flex justify-content-end">
+                        <div class="bt">
+                            <strong>Authorized Signature and Company stamp</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="turms">
+                <span>Warranty will be void if there is any physical damage,</span>
+                <span>Burn issue &amp; Liquid damage to the product or warranty sticker</span>
+                <span>is removed and sold goods are not refundable.</span>
+                <span>please find out the BCS warranty policy.</span>
+            </div> --}}
         </div>
     </div>
     <br>
@@ -176,11 +190,8 @@
         </div>
     </div>
 </div>
-
 @push('js')
-<script src="{{ asset('backend/common/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script>
-let item_ids = @json($ids);
 $('#add_product').click(() => {
     NL_Modal.open({
         size: 'lg',
@@ -188,31 +199,58 @@ $('#add_product').click(() => {
         body: function(body_class, obj) {
             $.ajax({
                 type: 'get',
-                url: `{{ route('admin.purchase.add_products', $purchase->id) }}`,
+                url: `{{ route('admin.purchase.get_products') }}`,
                 success: function(data) {
                     body_class.html(data);
+                    // body_class.prepend(`<div class="my-3" id="notify_wrap"></div>`);
                 }
             });
         }
     });
-});
-
-function add_item() {
-    // add_item
-    
-}
-
+})
 </script>
 @endpush
+{{--  <div class="p-4 col-md-4">
+                <button class="btn btn-primary payment rounded-0" purchase_id="{{ $purchase->id }}">Transaction</button>
+                <button class="btn btn-warning rounded-0">Confirm</button> --}}
+                {{-- <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Subtotal</div>
+                        </div>
+                        <strong>{{ $total }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Other Charges</div>
+                        </div>
+                        <strong>{{ $purchase->other_charge }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Total Discount</div>
+                        </div>
+                        <strong>
+                            {{ $purchase->discount_all }}{{ $purchase->discount_type == 'Per' ? '%' : '' }}
+                        </strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Grand Total</div>
+                        </div>
+                        <strong>
+                            {{ $purchase->total_price }}
+                        </strong>
+                    </li>
+                </ul> 
+            </div>--}}
 @push('css')
-<link rel="stylesheet" href="{{ asset('backend/common/sweetalert2/sweetalert2.min.css') }}">
+
 <style>
 .info_wrap {
     display: flex;
 }
-.swal2-container {
-    z-index: 99999 !important;
-}
+
 .customer_info {
     background: #f4f6f9;
     padding: 10px;

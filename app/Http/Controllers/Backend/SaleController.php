@@ -80,14 +80,18 @@ class SaleController extends Controller
                 $total += $sub_total;
             }
             $total += $request->other_charges_input;
+
+
+            $discount_amount = 0;
             if ($request->discount_type == 'Fixed') {
-                $total =  $total - $request->discount_all_input;
+                $discount_amount =  $request->discount_all_input;
             }
             else if ($request->discount_type == 'Per') {
-                $total =  $total - (($request->discount_all_input / 100) * $total);
+                $discount_amount =  ($request->discount_all_input / 100) * $total;
             }
 
             $sales->update([
+                'discount_amount' => $discount_amount,
                 'total_price' => $total,
                 'due_amount' => $total - ($request->amount ? $request->amount : 0)
             ]);

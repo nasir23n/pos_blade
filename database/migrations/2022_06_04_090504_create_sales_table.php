@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('total_price');
             // $table->double('transport_cost');
             $table->double('other_charge');
+            $table->double('discount_amount')->nullable();
             $table->double('discount_all')->nullable();
             $table->enum('discount_type', ['Fixed', 'Per'])->comment('Per=Percentage');
             $table->date('date');

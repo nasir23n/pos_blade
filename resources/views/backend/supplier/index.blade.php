@@ -7,12 +7,12 @@
 @include('backend.global.alert')
 
 <div class="card">
-    <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="card-header d-flex align-items-center justify-content-between border-primary"  style="border-top: 4px solid;border-bottom: 0;background:transparent;">
         <h5 class="m-0">Supplier List</h5>
         <button class=" btn btn-primary" id="add_supplier"><i class="fa fa-plus"></i></button>
     </div>
     <div class="card-body table-responsive">
-        <table class="table">
+        <table class="table table-bordered">
             <thead class="">
                 <tr>
                     <th>S/L</th>
@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 @foreach ($suppliers as $item)
-                    <tr>
+                    <tr class="actionable_row edit" link={{ route('admin.supplier.edit', $item) }}>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
@@ -43,11 +43,11 @@
                         <td>{{ $item->created_at }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <button type="button" class="btn btn-sm btn-primary edit" link={{ route('admin.supplier.edit', $item) }}><i class="fa fa-pen"></i></button>
+                                <button type="button" class="btn btn-sm btn-primary" link={{ route('admin.supplier.edit', $item) }}><i class="fa fa-pen"></i></button>
                                 <form action="{{ route('admin.supplier.delete', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>                                
+                                    <button type="submit" class="btn delete btn-sm btn-danger"><i class="fa fa-trash" style="pointer-events: none;"></i></button>                                
                                 </form>
                             </div>
                         </td>
@@ -65,20 +65,22 @@
 $(function() {
     $('.edit').click(function(e) {
         let $url = $(this).attr('link');
-        NL_Modal.open({
-            title: 'Edit Supplier',
-            size: 'md',
-            preload: true,
-            body: function(body_class, obj) {
-                $.ajax({
-                    type: 'get',
-                    url: $url,
-                    success: function(data) {
-                        body_class.html(data);
-                    }
-                });
-            }
-        });
+        if (!e.target.classList.contains('delete')) {
+            NL_Modal.open({
+                title: 'Edit Supplier',
+                size: 'md',
+                preload: true,
+                body: function(body_class, obj) {
+                    $.ajax({
+                        type: 'get',
+                        url: $url,
+                        success: function(data) {
+                            body_class.html(data);
+                        }
+                    });
+                }
+            });
+        }
     });
     $('#add_supplier').click(function() {
         NL_Modal.open({

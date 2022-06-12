@@ -21,10 +21,14 @@ return new class extends Migration
             // $table->double('transport_cost');
             $table->double('other_charge');
             $table->date('date');
+            $table->text('purchase_no')->nullable();
             // $table->foreignId('payment_id')->constrained();
+            $table->double('discount_amount')->nullable();
+            $table->double('discount_all')->nullable();
+            $table->enum('discount_type', ['Fixed', 'Per'])->nullable();
             $table->double('paid_amount');
             $table->double('due_amount');
-            $table->enum('purchase_status', ['Pending', 'Received', 'Complete']);
+            $table->enum('purchase_status', ['Pending', 'Received', 'Complete'])->default('Pending');
             $table->timestamps();
         });
     }

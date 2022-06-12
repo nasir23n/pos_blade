@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\PurchaseController;
@@ -97,9 +98,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/index', [PurchaseController::class, 'index'])->name('index');
         Route::get('/filter_product', [PurchaseController::class, 'filterProduct'])->name('filter_product');
         Route::get('/get_products', [PurchaseController::class, 'get_products'])->name('get_products');
+        Route::get('/{purchase}/add_products', [PurchaseController::class, 'add_products'])->name('add_products');
+        Route::post('/{purchase}/store_products', [PurchaseController::class, 'store_products'])->name('store_products');
         Route::get('/create', [PurchaseController::class, 'create'])->name('create');
         Route::post('/store', [PurchaseController::class, 'store'])->name('store');
         Route::get('/{purchase}/show/', [PurchaseController::class, 'show'])->name('show');
+        Route::post('/{purchase}/confirm/', [PurchaseController::class, 'confirm'])->name('confirm');
         Route::get('/{purchase}/edit/', [PurchaseController::class, 'edit'])->name('edit');
         Route::post('/{purchase}/update/', [PurchaseController::class, 'update'])->name('update');
         Route::delete('/{purchase}/delete/', [PurchaseController::class, 'delete'])->name('delete');
@@ -147,6 +151,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
     });
 
 
+    // Route::group(['as' => 'payment.', 'prefix' => 'payment'], function() {
+    //     Route::get('/index', [PaymentController::class, 'index'])->name('index');
+    //     Route::get('/create', [PaymentController::class, 'create'])->name('create');
+    //     Route::post('/store', [PaymentController::class, 'store'])->name('store');
+    //     Route::get('/{payment}/edit/', [PaymentController::class, 'edit'])->name('edit');
+    //     Route::post('/{payment}/update/', [PaymentController::class, 'update'])->name('update');
+    //     Route::delete('/{payment}/delete/', [PaymentController::class, 'delete'])->name('delete');
+    // });
 
 
 

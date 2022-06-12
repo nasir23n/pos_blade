@@ -16,4 +16,12 @@ class PurchaseDetails extends Model
         'price_id',
         'total',
     ];
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function price_was() {
+        return $this->belongsTo(Price::class, 'price_id', 'id');
+    }
 }

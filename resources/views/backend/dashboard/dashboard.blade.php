@@ -67,6 +67,57 @@
     </div>
 </div>
 
+<br>
+<div class="card">
+    <div class="card-header border-primary" style="border-top: 4px solid;border-bottom: 0;background:transparent;">
+        <h4>Servicing this month</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">S/L</th>
+                        <th>Customer</th>
+                        <th>phone</th>
+                        <th>Date</th>
+                        <th style="width:100px;">Delivary</th>
+                        <th>Total</th>
+                        <th>Paid</th>
+                        <th>Remaining</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="actionable_row">
+                        <td>1</td>
+                        <td>Keane Stephenson</td>
+                        <td>12245865832</td>
+                        <td>07-Jun-2022</td>
+                        <td>
+                            <div class="badge bg-danger">Painding</div>
+                        </td>
+                        <td>200TK</td>
+                        <td>76TK</td>
+                        <td>
+                            <div class="badge bg-danger">124TK</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">Total</td>
+                        <td>200TK</td>
+                        <td>76TK</td>
+                        <td>
+                            <div class="check_wrap">
+                                <span class="check danger"></span>124TK
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 {{-- 
 <div class="row mb-3 gy-4 gx-4">
     
