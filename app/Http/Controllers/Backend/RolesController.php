@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Module;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ use Illuminate\Support\Str;
 class RolesController extends Controller
 {
     public function index() {
-        // Gate::authorize('admin.roles');
+        Gate::authorize('admin.roles');
         $roles = Role::where('slug', '!=', 'super-admin')->orderBy('created_at', 'DESC')->get();
         return view('backend.roles.index', compact('roles'));
     }
@@ -23,6 +24,22 @@ class RolesController extends Controller
         $modules = Module::all();
         $isSuper = Auth::user()->role->slug == 'super-admin';
         return view('backend.roles.create', ['modules' => $modules, 'isSuper' => $isSuper]);
+    }
+
+    public function create_permission(Request $request) {
+        // Gate::authorize('admin.roles');
+        $request->validate([
+            'module' => 'required',
+            'name' => 'required',
+            'slug' => 'required|unique:permissions,slug',
+        ]);
+        $module = Module::find($request->module);
+        Permission::updateOrCreate([
+            'module_id' =>  $module->id,
+            'name'      => $request->name,
+            'slug'      => $request->slug
+        ]);
+        return back()->with('success', 'Permission Create Successfully');
     }
 
     public function store(Request $request) {

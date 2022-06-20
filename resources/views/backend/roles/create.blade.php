@@ -1,7 +1,12 @@
 @extends('backend.layouts.app')
 
 @section('content')
-
+{{-- $moduleAppDashboard = Module::updateOrCreate(['name'=>'Admin Dashboard']);
+Permission::updateOrCreate([
+    'module_id' =>  $moduleAppDashboard->id,
+    'name'      => 'Access Dashboard',
+    'slug'      => 'admin.dahboard'
+]); --}}
     <h4 class="content_header">Create Role</h4>
 
     <div class="card">
@@ -14,7 +19,7 @@
             <a href="{{ route('admin.roles') }}" class="btn btn-dark"><i class="fa fa-arrow-left"></i> Back to list</a>
         </div>
         <div class="card-body">
-            <form action="{{ isset($role) ? route('admin.update-role', $role) : route('admin.store-roles') }}" method="POST">
+            <form id="role_permission" action="{{ isset($role) ? route('admin.update-role', $role) : route('admin.store-roles') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -50,7 +55,7 @@
                 </div>
                 <br>
                 @forelse($modules->chunk(2) as $key => $chunks)
-                    <div class="form-row">
+                    <div class="row">
                         @foreach ($chunks as $key => $module)
                             <div class="col" style="border: 1px solid #efefef;padding: 10px">
                                 <h5>Module: <span style="color: #3F6AD8">{{ $module->name }}</span></h5>
@@ -99,11 +104,58 @@
                     </div>
                 @endforelse
                 <hr>
-                <div class="form-group col-md-6">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" form="role_permission" class="btn btn-primary">Submit</button>
+                    <button type="button" id="create_permission" class="btn btn-dark"><i class="fa fa-plus"></i> Create Permission</button>
                 </div>
             </form>
         </div>
     </div>
+
+    
+
+@push('js')
+<script>
+$('#create_permission').click(function() {
+    NL_Modal.open({
+        title: 'Create Permission',
+        size: 'lg',
+        body: function(body_class) {
+            let p_form = `<form action="{{ route('admin.create_permission') }}" class="row px-md-3" method="POST">
+                @csrf
+                <div class="form-group col-md-6">
+                    <div class="mb-3">
+                        <label for="module" class="form-label">Select Module</label>
+                        <select name="module" class="form-select" id="module" required>
+                            @foreach ($modules as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Permission Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Permission name" required>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">Slug</label>
+                        <input type="text" name="slug" class="form-control" placeholder="Permission slug" required>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="mb-3">
+                        <button class="btn btn-success" type="submit">Save<button>
+                    </div>
+                </div>
+            </form>`;
+            body_class.html(p_form);
+        }
+    });
+});
+</script>
+@endpush
 
 @endsection
