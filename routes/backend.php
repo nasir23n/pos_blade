@@ -36,6 +36,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
     Route::get('/roles/{role}/edit', [RolesController::class, 'edit'])->name('edit-roles');
     Route::post('/roles/{role}/update', [RolesController::class, 'update'])->name('update-role');
     Route::post('/roles/create_permission', [RolesController::class, 'create_permission'])->name('create_permission');
+    Route::post('/roles/create_module', [RolesController::class, 'create_module'])->name('create_module');
     Route::delete('/roles/{role}/delete', [RolesController::class, 'delete'])->name('delete-role');
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

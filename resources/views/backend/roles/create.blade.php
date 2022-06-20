@@ -1,12 +1,9 @@
 @extends('backend.layouts.app')
 
 @section('content')
-{{-- $moduleAppDashboard = Module::updateOrCreate(['name'=>'Admin Dashboard']);
-Permission::updateOrCreate([
-    'module_id' =>  $moduleAppDashboard->id,
-    'name'      => 'Access Dashboard',
-    'slug'      => 'admin.dahboard'
-]); --}}
+
+@include('backend.global.alert')
+
     <h4 class="content_header">Create Role</h4>
 
     <div class="card">
@@ -107,6 +104,7 @@ Permission::updateOrCreate([
                 <div class="d-flex justify-content-between">
                     <button type="submit" form="role_permission" class="btn btn-primary">Submit</button>
                     <button type="button" id="create_permission" class="btn btn-dark"><i class="fa fa-plus"></i> Create Permission</button>
+                    <button type="button" id="create_module" class="btn btn-success"><i class="fa fa-plus"></i> Create Module</button>
                 </div>
             </form>
         </div>
@@ -143,6 +141,29 @@ $('#create_permission').click(function() {
                     <div class="mb-3">
                         <label for="slug" class="form-label">Slug</label>
                         <input type="text" name="slug" class="form-control" placeholder="Permission slug" required>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="mb-3">
+                        <button class="btn btn-success" type="submit">Save<button>
+                    </div>
+                </div>
+            </form>`;
+            body_class.html(p_form);
+        }
+    });
+});
+$('#create_module').click(function() {
+    NL_Modal.open({
+        title: 'Create Permission',
+        size: 'lg',
+        body: function(body_class) {
+            let p_form = `<form action="{{ route('admin.create_module') }}" class="row px-md-3" method="POST">
+                @csrf
+                <div class="form-group col-md-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Module Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Module name" required>
                     </div>
                 </div>
                 <div class="form-group col-md-12">

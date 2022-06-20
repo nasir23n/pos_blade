@@ -41,6 +41,14 @@ class RolesController extends Controller
         ]);
         return back()->with('success', 'Permission Create Successfully');
     }
+    public function create_module(Request $request) {
+        // Gate::authorize('admin.roles');
+        $request->validate([
+            'name' => 'required|unique:modules,name'
+        ]);
+        Module::updateOrCreate(['name'=> $request->name]);
+        return back()->with('success', 'Module Create Successfully');
+    }
 
     public function store(Request $request) {
         // Gate::authorize('admin.roles');
