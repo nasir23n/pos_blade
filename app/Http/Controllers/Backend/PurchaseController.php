@@ -53,6 +53,7 @@ class PurchaseController extends Controller
             'date' => 'required',
             // 'purchase_status' => 'required'
         ]);
+        // dd($request->all());
         DB::beginTransaction();
         // DB::transaction(function() use($request) {
             $purchase = Purchase::create([
@@ -71,46 +72,49 @@ class PurchaseController extends Controller
             $total = 0;
             // dd($request->quantity[1]);
             // dd($request->all());
-            foreach ($request->product_id as $key => $id) {
-                $product = Product::find($id);
-                $sub_total = $product->latest_price->purchase_price * $request->quantity[$key];
-
-                // $price = $product->price()->create([
-                //     'sell_price' => $request->sell_price[$key],
-                //     'purchase_price' => $request->purchase_price[$key],
-                //     'updated_by' => auth()->user()->id,
-                //     'effected_date' => Carbon::now(),
-                // ]);
-
-                $purchase->details()->create([
-                    'purchase_id' => $purchase->id,
-                    'product_id' => $id,
-                    'price_id' => $product->latest_price->id,
-                    // 'price_id' => $price->id,
-                    'quantity' => $request->quantity[$key],
-                    'total' => $sub_total,
-                ]);
-
-                // $product->stock()->update([
-                //     'available_qty' => $product->stock->available_qty + $request->quantity[$key],
-                //     'purchased_qty' => $product->stock->purchased_qty + $request->quantity[$key],
-                // ]);
-                $total += $sub_total;
+            if ($request->product_id && $request->quantity) {
+                
+                foreach ($request->product_id as $key => $id) {
+                    $product = Product::find($id);
+                    $sub_total = $product->latest_price->purchase_price * $request->quantity[$key];
+    
+                    // $price = $product->price()->create([
+                    //     'sell_price' => $request->sell_price[$key],
+                    //     'purchase_price' => $request->purchase_price[$key],
+                    //     'updated_by' => auth()->user()->id,
+                    //     'effected_date' => Carbon::now(),
+                    // ]);
+    
+                    $purchase->details()->create([
+                        'purchase_id' => $purchase->id,
+                        'product_id' => $id,
+                        'price_id' => $product->latest_price->id,
+                        // 'price_id' => $price->id,
+                        'quantity' => $request->quantity[$key],
+                        'total' => $sub_total,
+                    ]);
+    
+                    // $product->stock()->update([
+                    //     'available_qty' => $product->stock->available_qty + $request->quantity[$key],
+                    //     'purchased_qty' => $product->stock->purchased_qty + $request->quantity[$key],
+                    // ]);
+                    $total += $sub_total;
+                }
             }
             $total += $request->other_charges_input;
 
-            $discount_amount = 0;
-            if ($request->discount_type == 'Fixed') {
-                $discount_amount =  $request->discount_all_input;
-            }
-            else if ($request->discount_type == 'Per') {
-                $discount_amount =  ($request->discount_all_input / 100) * $total;
-            }
+            // $discount_amount = 0;
+            // if ($request->discount_type == 'Fixed') {
+            //     $discount_amount =  $request->discount_all_input;
+            // }
+            // else if ($request->discount_type == 'Per') {
+            //     $discount_amount =  ($request->discount_all_input / 100) * $total;
+            // }
 
             // discount_amount
             $purchase->update([
                 'total_price' => $total,
-                'discount_amount' => $discount_amount,
+                // 'discount_amount' => $discount_amount,
                 'due_amount' => $total - ($request->amount ? $request->amount : 0)
             ]);
 
@@ -123,11 +127,11 @@ class PurchaseController extends Controller
                     // 'payable' => '',
                 ]);
             }
-
+            // dd($purchase);
         // });
         DB::commit();
         // dd($request->all());
-        return redirect()->route('admin.purchase.show', $purchase->id)->with('success', 'Purchase Create Successfully');
+        return redirect()->route('admin.purchase.index')->with('success', 'Purchase Create Successfully');
     }
 
     public function confirm(Purchase $purchase) {
@@ -145,12 +149,13 @@ class PurchaseController extends Controller
                 'purchased_qty' => $product->stock->purchased_qty + $value->quantity,
             ]);
         }
+        
         // dd($purchase->details);
         $purchase->update([
-            'purchase_status' => 'Received',
+            'purchase_status' => 'Complete',
         ]);
         DB::commit();
-        return back()->with('success', 'Purchesed Received.');
+        return back()->with('success', 'Purchesed Complete.');
     }
 
     public function show(Purchase $purchase) {
@@ -161,5 +166,69 @@ class PurchaseController extends Controller
         $suppliers = Supplier::all();
         $payment_methods = PaymentMethod::all();
         return view('backend.purchase.edit', compact('purchase', 'suppliers', 'payment_methods'));
+    }
+
+    public function update(Request $request ,Purchase $purchase) {
+        DB::beginTransaction();
+        
+        $total = 0;
+        $not_in = $purchase->details()->whereNotIn('product_id', $request->product_id);
+        // dd($request->all());
+        foreach ($request->product_id as $key => $id) {
+            $item = $purchase->details()->where('product_id', $id)->first();
+            $product = Product::find($id);
+            // dd($item);
+            $sub_total = $product->latest_price->purchase_price * $request->quantity[$key];
+
+            if ($item) {
+                $item->update([
+                    // 'price_id' => $product->latest_price->id,
+                    // 'price_id' => $price->id,
+                    'quantity' => $request->quantity[$key],
+                    'total' => $sub_total,
+                ]);
+            } else {
+                $purchase->details()->create([
+                    'purchase_id' => $purchase->id,
+                    'product_id' => $id,
+                    'price_id' => $product->latest_price->id,
+                    // 'price_id' => $price->id,
+                    'quantity' => $request->quantity[$key],
+                    'total' => $sub_total,
+                ]);
+            }
+
+            $total += $sub_total;
+        }
+        // $total += $request->other_charges_input;
+
+        // // discount_amount
+        $purchase->update([
+            'total_price' => $total,
+            // 'discount_amount' => $discount_amount,
+            // 'due_amount' => $total - ($request->amount ? $request->amount : 0)
+        ]);
+
+        if ($request->amount) {
+            $purchase->payment()->create([
+                'amount' => $request->amount,
+                'payment_method_id' => 1,
+                'note' => $request->payment_note,
+                'created_by' => auth()->user()->id,
+                // 'payable' => '',
+            ]);
+        }
+        $not_in->delete();
+        DB::commit();
+        return redirect()->route('admin.purchase.index')->with('success', 'Purchase Update Successfully');
+    }
+
+    public function delete(Purchase $purchase) {
+        DB::beginTransaction();
+        $purchase->details()->delete();
+        $purchase->payment()->delete();
+        $purchase->delete();
+        DB::commit();
+        return redirect()->route('admin.purchase.index')->with('success', 'Purchase Delete Successfully');
     }
 }

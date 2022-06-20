@@ -46,4 +46,17 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relation With Role
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+    //For Authorization
+    public function hasPermission($permission): bool {
+        if ($this->role) {
+            return $this->role->permissions()->where('slug',$permission)->first() ? true : false;
+        }
+        return false;
+    }
 }

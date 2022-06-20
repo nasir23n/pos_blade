@@ -25,11 +25,11 @@
         <div class="card-body">
             <div class="d-flex justify-content-center">
                 <div class="row col-lg-8">
-                    <div class="col-md-12">
+                    {{-- <div class="col-md-12">
                         <div class="mb-3">
                             Purchase No: <strong> {{ get_serial_no('purchases', 'purchase_no') }}</strong>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-md-6">
                         {{-- <div class="mb-3">
                             <label for="supplier_id" class="form-label">Select Supplier</label>

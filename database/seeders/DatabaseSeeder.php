@@ -26,5 +26,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\Product::factory(5)->create();
         $this->call(PriceSeeder::class);
         $this->call(PaymentMethodSeeder::class);
+        
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
     }
 }

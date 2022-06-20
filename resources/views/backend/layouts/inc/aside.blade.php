@@ -13,12 +13,22 @@
             </div>
         </div>
         <ul class="aside_links">
+            @access('admin.dahboard')
             <li>
                 <a class="{{ Route::is('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
                     <i class="aside_icon fa fa-tachometer-alt"></i>
                     Deshboard
                 </a>
             </li>
+            @endaccess
+            @access('admin.roles')
+            <li>
+                <a class="{{ Route::is('admin.roles') ? 'active' : '' }}" href="{{ route('admin.roles') }}">
+                    <i class="aside_icon fa fa-tachometer-alt"></i>
+                    Roles
+                </a>
+            </li>
+            @endaccess
             <li>
                 <a class="{{ Route::is('admin.supplier*') ? 'active' : '' }}" href="{{ route('admin.supplier.index') }}">
                     <i class="aside_icon fa fa-users"></i>

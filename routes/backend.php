@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\PurchaseController;
+use App\Http\Controllers\Backend\RolesController;
 use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\UnitController;
@@ -28,7 +29,16 @@ Route::prefix('admin')->group(function() {
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     
+    // Roles
+    Route::get('/roles', [RolesController::class, 'index'])->name('roles');
+    Route::get('/roles/create', [RolesController::class, 'create'])->name('create-roles');
+    Route::post('/roles/store', [RolesController::class, 'store'])->name('store-roles');
+    Route::get('/roles/{role}/edit', [RolesController::class, 'edit'])->name('edit-roles');
+    Route::post('/roles/{role}/update', [RolesController::class, 'update'])->name('update-role');
+    Route::delete('/roles/{role}/delete', [RolesController::class, 'delete'])->name('delete-role');
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('brand', BrandController::class);
 
     Route::group(['as' => 'category.', 'prefix' => 'category'], function() {

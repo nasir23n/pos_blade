@@ -109,8 +109,12 @@
                             <td>{{ $total }}TK</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="text-center"><strong>PAID</strong></td>
+                            <td colspan="4" class="text-center"><strong>Paid Amount</strong></td>
                             <td>{{ $purchase->paid_amount }}TK</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-center"><strong>Due Amount</strong></td>
+                            <td>{{ $purchase->due_amount }}TK</td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align: right;"><strong>In Word</strong></td>
@@ -119,10 +123,10 @@
                     </tfoot>
                 </table>
             </div>
-            <div class="d-flex mb-2">
+            {{-- <div class="d-flex mb-2">
                 <strong> In Word Taka: </strong>
                 <span style="text-transform: capitalize;">&nbsp;{{ num_to_word($total) }}</span>
-            </div>
+            </div> --}}
 
         </div>
     </div>
@@ -176,6 +180,7 @@
         </div>
     </div>
 </div>
+
 
 @push('js')
 <script src="{{ asset('backend/common/sweetalert2/sweetalert2.all.min.js') }}"></script>

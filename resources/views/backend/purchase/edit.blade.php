@@ -87,7 +87,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div> --}}
 
-    <form action="{{ route('admin.purchase.store') }}" id="purchase_form" method="post">
+    <form action="{{ route('admin.purchase.update', $purchase->id) }}" id="purchase_form" method="post">
         @csrf
     </form>
     {{-- {{ dd($) }} --}}
@@ -173,7 +173,7 @@
                             </td>
                             <td>{{ $product->name }}}</td>
                             <td>
-                                <input type="hidden" name="product_id[]" form="purchase_form" value="{{ $product->id }}}" />
+                                <input type="hidden" name="product_id[]" form="purchase_form" value="{{ $product->id }}" />
                                 <input class="form-control sell_price" form="purchase_form" type="number" name="sell_price[]" value="{{ $item->price_was->sell_price }}" min="0" disabled>
                             </td>
                             <td>
@@ -319,7 +319,7 @@
             </div>
 
             <div class="d-flex gap-2 col-6 mx-auto">
-                <button type="submit" form="purchase_form" class="btn btn-primary col-6" type="button">Save</button>
+                <button type="submit" form="purchase_form" class="btn btn-primary col-6" type="button">Update</button>
                 <button class="btn btn-secondary col-6" type="button">Close</button>
             </div>
         </div>

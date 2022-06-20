@@ -61,7 +61,7 @@
             @endforeach
         </div> 
     </div>--}}
-    <div class="card-body table-responsive">
+    <div class="card-body">
         <table class="table table-bordered">
             <thead class="">
                 <tr>
@@ -80,7 +80,7 @@
             </thead>
             <tbody>
                 @foreach ($purchases as $item)
-                    <tr class="actionable_row" onclick="window.location.href = `{{ route('admin.purchase.show', $item) }}`">
+                    <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->date }}</td>
                         <td>
@@ -107,14 +107,36 @@
                         <td>{{ $item->details->count() }}</td>
                         <td>{{ $item->creator->designation }}</td>
                         <td>
-                            <div role="group" aria-label="Basic mixed styles example" style="border-radius: 4px; overflow: hidden;">
+                            <div class="drop_container">
+                                <button class="drop btn btn-success">
+                                    Action <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="drop_element drop_right">
+                                    <li>
+                                        <a href={{ route('admin.purchase.show', $item) }}><i class="fa fa-eye"></i> View Purchase</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin.purchase.edit', $item) }}" ><i class="fa fa-pen"></i> Edit Purchase</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="far fa-credit-card"></i>Pay Now</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="far fa-credit-card"></i> View Payment</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="far fa-trash-alt"></i>Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            {{-- <div role="group" aria-label="Basic mixed styles example" style="border-radius: 4px; overflow: hidden;">
                                 <a class="btn btn-sm btn-warning view_purchase" href={{ route('admin.purchase.show', $item) }}><i class="fa fa-eye"></i></a>
-                                {{-- <a href="{{ route('admin.purchase.edit', $item) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                                <a href="{{ route('admin.purchase.edit', $item) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
                                 <button type="submit" form="form{{ $item->id }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>                                
                                 @if ($item->purchase_status == 'Pending')
                                 <button type="submit" form="confirm{{ $item->id }}" class="btn btn-sm btn-info">Confirm</button>
                                 @endif
-                                <form id="form{{ $item->id }}" action="{{ route('admin.category.delete', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
+                                <form id="form{{ $item->id }}" action="{{ route('admin.purchase.delete', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -122,14 +144,14 @@
                                 <form id="confirm{{ $item->id }}" action="{{ route('admin.purchase.confirm', $item) }}" method="post" onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                 </form>
-                                @endif --}}
-                            </div>
+                                @endif
+                            </div> --}}
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        {{-- {{ $categories->links() }} --}}
+        {{-- {{ $purchases->links() }} --}}
     </div>
 </div>
 
