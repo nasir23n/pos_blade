@@ -158,7 +158,6 @@
 
 @push('js')
 <script>
-
 // $(function() {
 //     $('.view_purchase').click(function(e) {
 //         e.preventDefault();
