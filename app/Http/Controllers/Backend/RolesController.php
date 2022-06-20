@@ -49,6 +49,15 @@ class RolesController extends Controller
         Module::updateOrCreate(['name'=> $request->name]);
         return back()->with('success', 'Module Create Successfully');
     }
+    public function delete_permission(Request $request) {
+        // Gate::authorize('admin.roles');
+        $permission = Permission::find($request->id);
+        if ($permission) {
+            $permission->delete();
+            return 'success';
+        }
+        return 'error';
+    }
 
     public function store(Request $request) {
         // Gate::authorize('admin.roles');

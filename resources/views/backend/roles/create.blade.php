@@ -16,6 +16,7 @@
             <a href="{{ route('admin.roles') }}" class="btn btn-dark"><i class="fa fa-arrow-left"></i> Back to list</a>
         </div>
         <div class="card-body">
+            
             <form id="role_permission" action="{{ isset($role) ? route('admin.update-role', $role) : route('admin.store-roles') }}" method="POST">
                 @csrf
                 <div class="row">
@@ -50,15 +51,31 @@
                         @enderror
                     </div>
                 </div>
-                <br>
+
                 @forelse($modules->chunk(2) as $key => $chunks)
+                <hr>
                     <div class="row">
                         @foreach ($chunks as $key => $module)
-                            <div class="col" style="border: 1px solid #efefef;padding: 10px">
+                            <div class="col-md-6" style="border: 1px solid #efefef;padding: 10px">
                                 <h5>Module: <span style="color: #3F6AD8">{{ $module->name }}</span></h5>
 
-                                @foreach ($module->permissions as $key => $permission)
-                                    {{-- $permission->slug === 'admin.dahboard' --}}
+                                <div class="list-group mx-0 w-auto">
+                                    @foreach ($module->permissions as $key => $permission)
+                                    <label class="list-group-item d-flex gap-2 justify-content-between">
+                                        <div class="flex-1">
+                                            <input type="checkbox" class="form-check-input flex-shrink-0"  name="permissions[]" value="{{ $permission->id }}"
+                                                    @isset($role) @foreach ($role->permissions as $rPermission)
+                                                  {{ $permission->id == $rPermission->id ? 'checked' : '' }}
+                                              @endforeach @endisset>
+                                            <span>
+                                                {{ $permission->name }}
+                                            </span>
+                                        </div>
+                                        <button type="button" class="btn btn-sm text-bg-red-500 delete_permission" p_id="{{ $permission->id }}"><i class="fa fa-trash"></i></button>
+                                    </label>
+                                    @endforeach
+                                </div>
+                                {{-- @foreach ($module->permissions as $key => $permission)
                                     @if ($isSuper)
                                         <div class="mb-3 ml-4">
                                             <div class="custom-control custom-checkbox mr-sm-2">
@@ -89,7 +106,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                @endforeach
+                                @endforeach --}}
                             </div>
                         @endforeach
                     </div>
@@ -110,10 +127,57 @@
         </div>
     </div>
 
-    
+
+@push('css')
+<link rel="stylesheet" href="{{ asset('backend/common/sweetalert2/sweetalert2.min.css') }}">
+@endpush
 
 @push('js')
+<script src="{{ asset('backend/common/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script>
+$('.delete_permission').click(function() {
+    let _this = $(this);
+    let p_id = _this.attr('p_id');
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Are you sure to delete this?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        showLoaderOnConfirm: true,
+        preConfirm: (login) => {
+            return $.ajax({
+                type: 'post',
+                url: '{{ route("admin.delete_permission") }}',
+                data: {
+                    id: p_id,
+                    _token: '{{ csrf_token() }}'
+                }
+            }).then((res) => {
+                return res;
+            })
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (result.value == 'success') {
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Item Deleted Successfully',
+                    icon: 'success'
+                });
+                _this.parent().remove();
+            } else {
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Opps Something Wrong',
+                    icon: 'error'
+                });
+            }
+        }
+    })
+});
 $('#create_permission').click(function() {
     NL_Modal.open({
         title: 'Create Permission',
