@@ -25,20 +25,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-center">
                 <div class="row col-lg-8">
-                    {{-- <div class="col-md-12">
-                        <div class="mb-3">
-                            Purchase No: <strong> {{ get_serial_no('purchases', 'purchase_no') }}</strong>
-                        </div>
-                    </div> --}}
                     <div class="col-md-6">
-                        {{-- <div class="mb-3">
-                            <label for="supplier_id" class="form-label">Select Supplier</label>
-                            <select name="supplier_id" id="supplier_id" form="purchase_form" class="form-select" required>
-                                @foreach ($suppliers as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                         <div class="mb-3 row">
                             <label for="supplier_id" class="col-sm-3 col-form-label">Select Supplier</label>
                             <div class="col-sm-9">
@@ -58,23 +45,10 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="purchase_status" class="form-label">Status</label>
-                            <select name="purchase_status" class="form-select" form="purchase_form" id="purchase_status" required>
-                                <option value="Painding">Painding</option>
-                                <option value="Received">Received</option>
-                                <option value="Complete">Complete</option>
-                            </select>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
         <div class="card-body border-top">
-            {{-- <input type="search" class="form-control" placeholder="Search product"> --}}
-
-            {{-- <div class="product_grid" id="products"></div> --}}
             <div class="d-flex justify-content-end">
                 <button class="btn btn-success my-2" id="select_product"><i class="fa fa-plus"></i>&nbsp; Select Product</button>
             </div>
@@ -103,63 +77,6 @@
                 </table>
             </div>
             <hr>
-            <div class="row">
-                {{-- <div class="col-md-6">
-                    <ul class="list-group">
-                        <li class="list-group-item d-sm-flex justify-content-between align-items-center">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Other Charges</div>
-                          </div>
-                          <input type="number" class="form-control" form="purchase_form" id="other_charges_input" name="other_charges_input" value="0" style="max-width: 200px;" min="0">
-                        </li>
-                        <li class="list-group-item d-md-flex justify-content-between align-items-center">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Discount All</div>
-                          </div>
-                          <input type="number" class="form-control" form="purchase_form" id="discount_all_input" name="discount_all_input" value="0" style="max-width: 200px;" min="0">
-                          <select name="discount_type" id="discount_type" form="purchase_form" class="form-select" style="max-width: 200px;">
-                              <option value="Fixed">Fixed</option>
-                              <option value="Per">Per%</option>
-                          </select>
-                        </li>
-                        <li class="list-group-item d-sm-flex justify-content-between align-items-center">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Note</div>
-                          </div>
-                          <textarea name="note" class="form-control" form="purchase_form" id="note" rows="2" placeholder="Note" style="max-width: 500px;"></textarea>
-                        </li>
-                    </ul>
-                </div> --}}
-                {{--  --}}
-                {{-- <div class="col-md-6">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Subtotal</div>
-                          </div>
-                          <strong class="sub_total">0</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Other Charge</div>
-                          </div>
-                          <strong class="other_charges">0</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Discount All</div>
-                          </div>
-                          <strong class="discount_all">0</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Grand Total</div>
-                          </div>
-                          <strong class="grand_total">0</strong>
-                        </li>
-                    </ul>
-                </div> --}}
-            </div>
         </div>
     </div>
 
@@ -187,13 +104,13 @@
                     </div>
                 </div>
                 <br>
-            <div class="d-flex gap-2 col-6 mx-auto">
-                <button type="submit" form="purchase_form" class="btn btn-primary col-6" type="button">Save</button>
-                <button class="btn btn-secondary col-6" type="button">Close</button>
+                <div class="d-flex gap-2 col-6 mx-auto">
+                    <button type="submit" form="purchase_form" class="btn btn-primary col-6" type="button">Save</button>
+                    <button class="btn btn-secondary col-6" type="button">Close</button>
+                </div>
             </div>
         </div>
     </div>
-
     <br><br><br><br><br><br>
 
 @push('js')

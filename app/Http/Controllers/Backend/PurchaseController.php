@@ -18,6 +18,7 @@ class PurchaseController extends Controller
 {
     public function index() {
         $this->data['purchases'] = Purchase::all();
+        $this->data['payment_methods'] = PaymentMethod::all();
         return view('backend.purchase.index', $this->data); 
     }
 
@@ -40,6 +41,51 @@ class PurchaseController extends Controller
         // return $request->all();
         // $products = Product::with('latest_price')->paginate(5);
         // return view('backend.purchase.add_products', compact('products', 'purchase'));
+    }
+
+    public function view_payments(Purchase $purchase) {
+        return view('backend.purchase.view_payments', compact('purchase'));
+    }
+
+    public function payment(Request $request) {
+        $purchase = Purchase::find($request->purchase_id);
+        if ($purchase) {
+            if ($purchase->due_amount < $request->amount) {
+                return 'error';
+            }
+            $purchase->payment()->create([
+                'amount' => $request->amount,
+                'payment_method_id' => $request->payment_method ? $request->payment_method : 1,
+                'note' => $request->payment_note,
+                'created_by' => auth()->user()->id,
+            ]);
+            $purchase->update([
+                'paid_amount' => $purchase->paid_amount + $request->amount,
+                'due_amount' => $purchase->total_price - ($purchase->paid_amount + $request->amount)
+            ]);
+            $due_amount = '<div class="check_wrap">';
+            $due_amount .= ($purchase->due_amount > 0) ? '<span class="check danger"></span> '.$purchase->due_amount.'TK' : '<span class="check success"></span> '.$purchase->due_amount.'TK';
+            $due_amount .= '</div>';
+
+            return response()->json([
+                'paid_amount' => $purchase->paid_amount,
+                'due_amount' => $due_amount
+            ]);
+        }
+        return 'error';
+    }
+
+    public function delete_payment(Request $request ,Payment $payment) {
+        $request->validate([
+            'purchase_id' => 'required'
+        ]);
+        $purchase = Purchase::find($request->purchase_id);
+        $purchase->update([
+            'paid_amount' => $purchase->paid_amount - $payment->amount,
+            'due_amount' => $purchase->due_amount + $payment->amount,
+        ]);
+        $payment->delete();
+        return back()->with('success', 'Payment delete Successfully');
     }
 
     public function filterProduct(Request $request) {
@@ -121,7 +167,7 @@ class PurchaseController extends Controller
             if ($request->amount) {
                 $purchase->payment()->create([
                     'amount' => $request->amount,
-                    'payment_method_id' => 1,
+                    'payment_method_id' => $request->payment_method ? $request->payment_method : 1,
                     'note' => $request->payment_note,
                     'created_by' => auth()->user()->id,
                     // 'payable' => '',
@@ -206,13 +252,13 @@ class PurchaseController extends Controller
         $purchase->update([
             'total_price' => $total,
             // 'discount_amount' => $discount_amount,
-            // 'due_amount' => $total - ($request->amount ? $request->amount : 0)
+            'due_amount' => $total - ($request->amount ? $request->amount + $purchase->paid_amount : $purchase->paid_amount)
         ]);
 
         if ($request->amount) {
             $purchase->payment()->create([
                 'amount' => $request->amount,
-                'payment_method_id' => 1,
+                'payment_method_id' => $request->payment_method ? $request->payment_method : 1,
                 'note' => $request->payment_note,
                 'created_by' => auth()->user()->id,
                 // 'payable' => '',

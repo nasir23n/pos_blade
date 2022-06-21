@@ -18,7 +18,7 @@ class ProductController extends Controller
     use FileSaver;
 
     public function index() {
-        $products =  Product::paginate(10);
+        $products =  Product::with('category', 'brand', 'unit', 'latest_price', 'creator')->paginate(10);
         return view('backend.product.index', compact('products'));
     }
     public function create() {
