@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\Sale;
@@ -14,6 +15,8 @@ class SaleController extends Controller
 {
     public function index() {
         $this->data['sales'] = Sale::all();
+        $this->data['payment_methods'] = PaymentMethod::all();
+
         return view('backend.sales.index', $this->data);
     }
     public function create() {
@@ -36,7 +39,7 @@ class SaleController extends Controller
         $request->validate([
             'customer_id' => 'required',
             'date' => 'required',
-            'sell_status' => 'required'
+            // 'sell_status' => 'required'
         ]);
         // dd($request->all());
         DB::transaction(function() use($request) {
@@ -44,26 +47,19 @@ class SaleController extends Controller
                 'customer_id' => $request->customer_id,
                 'created_by' => auth()->user()->id,
                 'total_price' => 0,
-                'other_charge' => $request->other_charges_input,
+                'other_charge' => 0,
                 'date' => $request->date,
-                'discount_all' => $request->discount_all_input,
-                'discount_type' => $request->discount_type,
+                'discount_all' => 0,
+                'discount_type' => 'Fixed',
                 'paid_amount' => $request->amount ? $request->amount : 0,
                 'due_amount' => 0,
-                'sell_status' => $request->sell_status,
+                'sell_status' => 'Pending',
             ]);
             $total = 0;
             foreach ($request->product_id as $key => $id) {
                 $product = Product::find($id);
                 $latest_price = $product->latest_price;
                 $sub_total = $latest_price->sell_price * $request->quantity[$key];
-                // dd($sub_total);
-                // $price = $product->price()->create([
-                //     'sell_price' => $request->sell_price[$key],
-                //     'sell_price' => $request->sell_price[$key],
-                //     'updated_by' => auth()->user()->id,
-                //     'effected_date' => Carbon::now(),
-                // ]);
 
                 $sales->details()->create([
                     'purchase_id' => $sales->id,
@@ -79,19 +75,11 @@ class SaleController extends Controller
                 ]);
                 $total += $sub_total;
             }
-            $total += $request->other_charges_input;
+            // $total += $request->other_charges_input;
 
-
-            $discount_amount = 0;
-            if ($request->discount_type == 'Fixed') {
-                $discount_amount =  $request->discount_all_input;
-            }
-            else if ($request->discount_type == 'Per') {
-                $discount_amount =  ($request->discount_all_input / 100) * $total;
-            }
 
             $sales->update([
-                'discount_amount' => $discount_amount,
+                // 'discount_amount' => $discount_amount,
                 'total_price' => $total,
                 'due_amount' => $total - ($request->amount ? $request->amount : 0)
             ]);
@@ -108,10 +96,73 @@ class SaleController extends Controller
 
         });
         // dd($request->all());
-        return back()->with('success', 'Sales Create Successfully');
+        return redirect()->route('admin.sales.index')->with('success', 'Sales Create Successfully');
+    }
+
+    public function confirm(Sale $sale) {
+        $sale->update([
+            'sales_status' => 'Complete',
+        ]);
+        return redirect()->route('admin.sales.index')->with('success', 'Sales Confirm Successfully');
+    }
+
+    public function payment(Request $request) {
+        $sale = Sale::find($request->sale_id);
+        if ($sale) {
+            if ($sale->due_amount < $request->amount) {
+                return 'error';
+            }
+            $sale->payment()->create([
+                'amount' => $request->amount,
+                'payment_method_id' => $request->payment_method ? $request->payment_method : 1,
+                'note' => $request->payment_note,
+                'created_by' => auth()->user()->id,
+            ]);
+            $sale->update([
+                'paid_amount' => $sale->paid_amount + $request->amount,
+                'due_amount' => $sale->total_price - ($sale->paid_amount + $request->amount)
+            ]);
+            $due_amount = '<div class="check_wrap">';
+            $due_amount .= ($sale->due_amount > 0) ? '<span class="check danger"></span> '.$sale->due_amount.'TK' : '<span class="check success"></span> '.$sale->due_amount.'TK';
+            $due_amount .= '</div>';
+
+            return response()->json([
+                'paid_amount' => $sale->paid_amount,
+                'due_amount' => $due_amount
+            ]);
+        }
+        return 'error';
+    }
+
+    public function view_payments(Sale $sale) {
+        return view('backend.sales.view_payments', compact('sale'));
+    }
+    public function delete_payment(Request $request ,Payment $payment) {
+        $request->validate([
+            'sale_id' => 'required'
+        ]);
+        $sale = Sale::find($request->sale_id);
+        $sale->update([
+            'paid_amount' => $sale->paid_amount - $payment->amount,
+            'due_amount' => $sale->due_amount + $payment->amount,
+        ]);
+        $payment->delete();
+        return back()->with('success', 'Payment delete Successfully');
     }
 
     public function show(Sale $sale) {
         return view('backend.sales.show', compact('sale'));
+    }
+
+    public function edit(Sale $sale) {
+        return view('backend.sales.edit', compact('sale'));
+    }
+
+    public function delete(Sale $sale) {
+        // dd($sale->payment);
+        $sale->details()->delete();
+        $sale->payment()->delete();
+        $sale->delete();
+        return back()->with('success', 'Sales Delete Successfully');
     }
 }

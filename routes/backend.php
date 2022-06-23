@@ -130,10 +130,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
         Route::get('/index', [SaleController::class, 'index'])->name('index');
         Route::get('/filter_product', [SaleController::class, 'filterProduct'])->name('filter_product');
         Route::get('/get_products', [SaleController::class, 'get_products'])->name('get_products');
+
+        Route::post('/sale/payment', [SaleController::class, 'payment'])->name('payment');
+        Route::get('/{sale}/view_payments', [SaleController::class, 'view_payments'])->name('view_payments');
+        Route::post('/{payment}/delete_payment', [SaleController::class, 'delete_payment'])->name('delete_payment');
+
         Route::get('/create', [SaleController::class, 'create'])->name('create');
         Route::post('/store', [SaleController::class, 'store'])->name('store');
         Route::get('/{sale}/show/', [SaleController::class, 'show'])->name('show');
         Route::get('/{sale}/edit/', [SaleController::class, 'edit'])->name('edit');
+        Route::post('/{sale}/confirm/', [SaleController::class, 'confirm'])->name('confirm');
         // Route::post('/{purchase}/update/', [SaleController::class, 'update'])->name('update');
         Route::delete('/{sale}/delete/', [SaleController::class, 'delete'])->name('delete');
     });

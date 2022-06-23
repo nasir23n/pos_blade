@@ -219,7 +219,7 @@ $('#create_permission').click(function() {
 });
 $('#create_module').click(function() {
     NL_Modal.open({
-        title: 'Create Permission',
+        title: 'Create Module',
         size: 'lg',
         body: function(body_class) {
             let p_form = `<form action="{{ route('admin.create_module') }}" class="row px-md-3" method="POST">

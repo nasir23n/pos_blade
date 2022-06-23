@@ -165,18 +165,7 @@
 	padding-right:10px
 }
 
-    </style>
-    {{-- @include('backend.global.alert') --}}
-    {{-- <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show" role="alert">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-            <path
-                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-        </svg>
-        <div>
-            An example alert with an icon
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div> --}}
+</style>
 
     <form action="{{ route('admin.sales.store') }}" id="sales_form" method="post">
         @csrf
@@ -185,45 +174,34 @@
     <div class="card">
         <div class="card-body">
             @include('backend.global.alert')
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="customer_id" class="form-label">Select Supplier</label>
-                        <select name="customer_id" id="customer_id" form="sales_form" class="form-select select2" required>
-                            @foreach ($customers as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
+            <div class="d-flex justify-content-center">
+                <div class="row col-lg-8">
+                    <div class="col-md-6">
+                        <div class="mb-3 row">
+                            <label for="customer_id" class="col-sm-3 col-form-label">Select Supplier</label>
+                            <div class="col-sm-9">
+                                <select name="customer_id" id="customer_id" form="sales_form" class="form-select" required>
+                                    @foreach ($customers as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="date" class="form-label">Date</label>
-                        <input type="date" name="date" class="form-control" form="sales_form" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date" required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="sell_status" class="form-label">Status</label>
-                        <select name="sell_status" class="form-select" form="sales_form" id="sell_status" required>
-                            <option value="Painding">Painding</option>
-                            <option value="Received">Received</option>
-                            <option value="Complete">Complete</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="order_no" class="form-label">Order No</label>
-                        <input type="text" form="sales_form" class="form-control disabled" value="OD-01" disabled>
+                    <div class="col-md-6">
+                        <div class="mb-3 row">
+                            <label for="date" class="col-sm-3 col-form-label">Date</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="date" id="date" class="form-control" form="sales_form" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date" required>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-body border-top">
-            {{-- <input type="search" class="form-control" placeholder="Search product"> --}}
 
-            {{-- <div class="product_grid" id="products"></div> --}}
+
             <div class="d-flex justify-content-end">
                 <button class="btn btn-success my-2" id="select_product"><i class="fa fa-plus"></i>&nbsp; Select Product</button>
             </div>
@@ -234,7 +212,6 @@
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Sales Price</th>
-                        {{-- <th scope="col">Purchase Price</th> --}}
                         <th scope="col">Quantity</th>
                         <th scope="col">Total Amount</th>
                         <th scope="col" width="60">Action</th>
@@ -243,18 +220,19 @@
                     <tbody id="selected_items">
                       
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                            <td class="grand_total" style="text-align: right;">0</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
-            <hr>
+            {{-- <hr>
             <div class="row">
                 <div class="col-md-6">
                     <ul class="list-group">
-                        {{-- <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Total Quantities</div>
-                          </div>
-                          <label class="control-label text-success">0</label>
-                        </li> --}}
                         <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Other Charges</div>
@@ -275,12 +253,10 @@
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Note</div>
                           </div>
-                          {{-- <input type="text" class="form-control" id="note" name="note" style="max-width: 500px;" placeholder="Note"> --}}
                           <textarea name="note" class="form-control" form="sales_form" id="note" rows="2" placeholder="Note" style="max-width: 500px;"></textarea>
                         </li>
                     </ul>
                 </div>
-                {{--  --}}
                 <div class="col-md-6">
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -309,7 +285,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -442,35 +418,35 @@ function remove_item(item, id) {
 }
 function calculate_total() {
     let sell_price = 0;
-    let other_charge = $('#other_charges_input').val();
+    // let other_charge = $('#other_charges_input').val();
     let discount_all_input = $('#discount_all_input').val();
     let discount_type = $('#discount_type').val();
+    // let total;
 
     $('.sell_price').each(function() {
         let qty = $(this).parents('tr').find('.quantity');
         let total = Number($(this).val()) * Number(qty.val());
-
         sell_price += total;
 
         $(this).parents('tr').find('.total_amount').val(total);
     });
     $('.sub_total').html(sell_price);
 
-    $('.other_charges').html(other_charge);
+    // $('.other_charges').html(other_charge);
 
-    let total = sell_price + Number(other_charge);
+    // let total = sell_price;
+    
+    // if (discount_type == 'Fixed') {
+    //     $('.discount_all').html(discount_all_input);
+    //     total = total - Number(discount_all_input);
+    // }
+    // if (discount_type == 'Per') {
+    //     $('.discount_all').html(discount_all_input+'%');
+    //     total = total - ((Number(discount_all_input) / 100) * total);
+    // }
 
-    if (discount_type == 'Fixed') {
-        $('.discount_all').html(discount_all_input);
-        total = total - Number(discount_all_input);
-    }
-    if (discount_type == 'Per') {
-        $('.discount_all').html(discount_all_input+'%');
-        total = total - ((Number(discount_all_input) / 100) * total);
-    }
-
-    $('.grand_total').html(total);
-    $('#amount').attr('max', total);
+    $('.grand_total').html(sell_price);
+    $('#amount').attr('max', sell_price);
 }
 
 </script>    
