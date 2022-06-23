@@ -95,16 +95,16 @@
                 </ul>
             </li>
             
-            {{-- <li class="aside_drop">
-                <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.brand*') ? 'active' : '' }}">
-                    <i class="aside_icon fab fa-canadian-maple-leaf"></i>
-                    Brands
+            <li class="aside_drop">
+                <a href="javascript:void(0)" class="aside_drop_btn {{ Route::is('admin.reports*') ? 'active' : '' }}">
+                    <i class="aside_icon far fa-chart-bar"></i>
+                    Reports
                 </a>
                 <ul>
-                    <li><a class="{{ Route::is('admin.brand.index') ? 'active' : '' }}" href="{{ route('admin.brand.index') }}">All Brands</a></li>
-                    <li><a class="{{ Route::is('admin.brand.create') ? 'active' : '' }}" href="{{ route('admin.brand.create') }}">Create Brands</a></li>
+                    <li><a class="{{ Route::is('admin.reports.purchase') ? 'active' : '' }}" href="{{ route('admin.reports.purchase') }}">Purchase Report</a></li>
+                    <li><a class="{{ Route::is('admin.reports.sales') ? 'active' : '' }}" href="{{ route('admin.reports.sales') }}">Sale Report</a></li>
                 </ul>
-            </li> --}}
+            </li>
             <li><a href="{{ route('admin.font_awesome') }}" class="{{ Route::is('admin.font_awesome') ? 'active' : '' }}"><i class="aside_icon far fa-flag"></i> Font Awesome</a></li>
             <li><a href="{{ route('admin.bootstrap_icon') }}" class="{{ Route::is('admin.bootstrap_icon') ? 'active' : '' }}"><i class="fab aside_icon fa-bootstrap"></i> Bootstrap Icons</a></li>
             {{-- 

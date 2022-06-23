@@ -9,6 +9,8 @@ use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\PaymentMethodController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\PurchaseController;
+use App\Http\Controllers\Backend\Report\PurchaseReportController;
+use App\Http\Controllers\Backend\Report\SaleReportController;
 use App\Http\Controllers\Backend\RolesController;
 use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\SupplierController;
@@ -174,14 +176,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth:admin
     });
 
 
-    // Route::group(['as' => 'payment.', 'prefix' => 'payment'], function() {
-    //     Route::get('/index', [PaymentController::class, 'index'])->name('index');
-    //     Route::get('/create', [PaymentController::class, 'create'])->name('create');
-    //     Route::post('/store', [PaymentController::class, 'store'])->name('store');
-    //     Route::get('/{payment}/edit/', [PaymentController::class, 'edit'])->name('edit');
-    //     Route::post('/{payment}/update/', [PaymentController::class, 'update'])->name('update');
-    //     Route::delete('/{payment}/delete/', [PaymentController::class, 'delete'])->name('delete');
-    // });
+    Route::group(['as' => 'reports.', 'prefix' => 'reports'], function() {
+        Route::get('/purchase', [PurchaseReportController::class, 'index'])->name('purchase');
+        Route::get('/purchase/filter', [PurchaseReportController::class, 'filter'])->name('purchase.filter');
+        
+        Route::get('/sales', [SaleReportController::class, 'index'])->name('sales');
+        Route::get('/sales/filter', [SaleReportController::class, 'filter'])->name('sales.filter');
+
+    });
 
 
 

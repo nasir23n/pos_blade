@@ -13,56 +13,84 @@
         <div class="card-body widget_body">
             <div class="content">
                 <p>Total customer</p>
-                <strong>200 customers</strong>
+                <strong>{{ $customers }} customers</strong>
             </div>
             <div class="icon">
                 <i class="fa fa-users"></i>
             </div>
         </div>
         <div class="card-footer widget_footer">
-            <a href="#">All customer  &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+            <a href="{{ route('admin.customer.index') }}">All customer  &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
         </div>
     </div>
     <div class="card text-bg-orange-500 shadow">
         <div class="card-body widget_body">
             <div class="content">
-                <p>Total servicing</p>
-                <strong>501210TK</strong>
+                <p>Total Supplier</p>
+                <strong>{{ $suppliers }} Supplier</strong>
             </div>
             <div class="icon">
                 <i class="fa fa-users"></i>
             </div>
         </div>
         <div class="card-footer widget_footer">
-            <a href="#">All servicing  &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+            <a href="{{ route('admin.supplier.index') }}">All servicing  &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
         </div>
     </div>
     <div class="card text-bg-purple-600 shadow">
         <div class="card-body widget_body">
             <div class="content">
-                <p>Total servicing</p>
-                <strong>501210TK</strong>
+                <p>Total Product</p>
+                <strong>{{ $products }} Products</strong>
             </div>
             <div class="icon">
-                <i class="fa fa-users"></i>
+                <i class="far fa-stop-circle"></i>
             </div>
         </div>
         <div class="card-footer widget_footer">
-            <a href="#">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+            <a href="{{ route('admin.product.index') }}">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
         </div>
     </div>
     <div class="card text-bg-green-700 shadow">
         <div class="card-body widget_body">
             <div class="content">
-                <p>Total servicing</p>
-                <strong>501210TK</strong>
+                <p>Total Sales</p>
+                <strong>{{ $sales }}TK</strong>
             </div>
             <div class="icon">
-                <i class="fa fa-users"></i>
+                <i class="fas fa-shopping-bag"></i>
             </div>
         </div>
         <div class="card-footer widget_footer">
-            <a href="#">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+            <a href="{{ route('admin.sales.index') }}">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+        </div>
+    </div>
+    <div class="card text-bg-yellow-700 shadow">
+        <div class="card-body widget_body">
+            <div class="content">
+                <p>Total Sales Due</p>
+                <strong>{{ $sales_due }}TK</strong>
+            </div>
+            <div class="icon">
+                <i class="fas fa-minus-circle"></i>
+            </div>
+        </div>
+        <div class="card-footer widget_footer">
+            <a href="{{ route('admin.sales.index') }}">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
+        </div>
+    </div>
+    <div class="card text-bg-cyan-700 shadow">
+        <div class="card-body widget_body">
+            <div class="content">
+                <p>Total Expense Amount</p>
+                <strong>{{ $expense_amount }}TK</strong>
+            </div>
+            <div class="icon">
+                <i class="fas fa-minus-circle"></i>
+            </div>
+        </div>
+        <div class="card-footer widget_footer">
+            <a href="{{ route('admin.sales.index') }}">All sell &nbsp;<i class="fa fa-arrow-circle-right"></i> </a>
         </div>
     </div>
 </div>
