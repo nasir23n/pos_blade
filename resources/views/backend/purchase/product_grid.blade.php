@@ -3,8 +3,9 @@
         @php
             $info = [
                 'id' => $item->id,
+                'quantity' => 1,
+                'total_price' => $item->latest_price->purchase_price,
                 'name' => $item->name,
-                'sell_price' => $item->latest_price->sell_price,
                 'available_qty' => $item->stock->available_qty,
                 'purchase_price' => $item->latest_price->purchase_price,
                 'image' => $item->image,
@@ -16,7 +17,7 @@
             </div>
             <div class="description">
                 <p>{{ $item->name }}</p>
-                <strong>${{ @$item->latest_price->sell_price }}</strong>
+                <strong>{{ @$item->latest_price->purchase_price }}TK</strong>
             </div>
             <p class="text-center px-1">
                 Stock:
