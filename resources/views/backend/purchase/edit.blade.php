@@ -151,44 +151,32 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                      <tr>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Sales Price</th>
-                        <th scope="col">Purchase Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Total Amount</th>
-                        <th scope="col" width="60">Action</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Purchase Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col" width="60">Action</th>
+                        </tr>
                     </thead>
                     <tbody id="selected_items">
-                        @foreach ($purchase->details as $item) 
                         @php
-                            $product = $item->product;
-                            // dd();
+                            $info_array = [];
                         @endphp
-                        <tr>
-                            <td>
-                                <img src="{{ url('') }}/{{ $product->image }}" alt="" width="50">
-                            </td>
-                            <td>{{ $product->name }}}</td>
-                            <td>
-                                <input type="hidden" name="product_id[]" form="purchase_form" value="{{ $product->id }}" />
-                                <input class="form-control sell_price" form="purchase_form" type="number" name="sell_price[]" value="{{ $item->price_was->sell_price }}" min="0" disabled>
-                            </td>
-                            <td>
-                                <input type="number" form="purchase_form" class="form-control purchase_price" name="purchase_price[]" value="{{ $item->price_was->purchase_price }}" min="0" disabled>
-                            </td>
-                            <td>
-                                <input type="number" form="purchase_form" name="quantity[]" value="{{ $item->quantity }}" class="form-control quantity" min="0">
-                            </td>
-                            <td>
-                                <input type="number" class="form-control total_amount disabled" name="total_amount[]" value="{{ $item->total }}" disabled>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" onclick="remove_item(this, '{{ $item->product_id }}')"><i class="fa fa-minus"></i></button>
-                            </td>
-                        </tr>
+                        @foreach ($purchase->details as $item) 
+                            @php
+                                $product = $item->product;
+                                $info = [
+                                    'id' => $item->product->id,
+                                    'quantity' => $item->quantity,
+                                    'total_price' => $item->total,
+                                    'name' => $item->product->name,
+                                    'purchase_price' => $item->price_was->purchase_price,
+                                    'image' => $item->product->image,
+                                ];
+                                array_push($info_array, $info);
+                            @endphp
                         @endforeach
                     </tbody>
                     <tfoot>
@@ -202,59 +190,67 @@
             <hr>
             <div class="row">
                 <div class="col-md-6">
-                    {{-- <ul class="list-group">
+                    <ul class="list-group">
                         <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Other Charges</div>
                           </div>
                           <input type="number" class="form-control" form="purchase_form" id="other_charges_input" name="other_charges_input" value="{{ $purchase->other_charge }}" style="max-width: 200px;" min="0">
                         </li>
+                        <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">Transport Cost</div>
+                          </div>
+                          <input type="number" class="form-control" form="purchase_form" id="transport_cost_input" name="transport_cost_input" value="{{ $purchase->transport_cost }}" style="max-width: 200px;" min="0">
+                        </li>
                         <li class="list-group-item d-md-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Discount All</div>
                           </div>
-                          <input type="number" class="form-control" form="purchase_form" id="discount_all_input" name="discount_all_input" value="{{ $purchase->discount_all }}" style="max-width: 200px;" min="0">
-                          <select name="discount_type" id="discount_type" form="purchase_form" class="form-select" style="max-width: 200px;">
-                              <option value="Fixed" {{ ($purchase->discount_type == 'Fixed') ? 'selected' : '' }}>Fixed</option>
-                              <option value="Per" {{ ($purchase->discount_type == 'Per') ? 'selected' : '' }}>Per%</option>
-                          </select>
+                          <input type="number" class="form-control" form="purchase_form" id="discount_all_input" name="discount_all_input" value="{{ $purchase->discount_amount }}" style="max-width: 200px;" min="0">
                         </li>
                         <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Note</div>
                           </div>
-                          <textarea name="note" class="form-control" form="purchase_form" id="note" rows="2" placeholder="Note" style="max-width: 500px;">{{ $purchase->note }}</textarea>
+                          <textarea name="note" class="form-control" form="purchase_form" id="note" rows="2" placeholder="Note" style="max-width: 500px;"></textarea>
                         </li>
-                    </ul> --}}
+                    </ul>
                 </div>
                 {{--  --}}
                 <div class="col-md-6">
-                    {{-- <ul class="list-group">
+                    <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
+                            <div class="ms-2 me-auto">
                             <div class="fw-bold">Subtotal</div>
-                          </div>
-                          <strong class="sub_total">{{ $purchase->details->sum('total') }}</strong>
+                            </div>
+                            <strong class="sub_total">0</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Other Charge</div>
-                          </div>
-                          <strong class="other_charges">{{ $purchase->other_charge }}</strong>
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Transport cost</div>
+                            </div>
+                            <strong class="transport_cost">0</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Discount All</div>
-                          </div>
-                          <strong class="discount_all">{{ $purchase->discount_all }}</strong>
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Other Charge</div>
+                            </div>
+                            <strong class="other_charges">0</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Grand Total</div>
-                          </div>
-                          <strong class="grand_total">{{ $purchase->total_price }}</strong>
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Discount All</div>
+                            </div>
+                            <strong class="discount_all">0</strong>
                         </li>
-                    </ul> --}}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Grand Total</div>
+                            </div>
+                            <strong class="grand_total">0</strong>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -329,6 +325,87 @@
 
 @push('js')
 <script>
+
+const cart = {
+    selected_product: @json($info_array),
+    add(info) {
+        if (!this.exist(info.id)) {
+            this.selected_product.push(info);
+        } else {
+            this.increment(info.id);
+        }
+        this.render();
+    },
+    increment(id) {
+        let index = this.selected_product.findIndex(item => item.id === id);
+        this.selected_product[index].quantity++;
+    },
+    exist(id) {
+        let p = this.selected_product.filter((product) => product.id === id);
+        return (p.length > 0) ? true : false;
+    },
+    remove_item(id) {
+        let index = this.selected_product.findIndex(item => item.id === id);
+        this.selected_product.splice(index, 1);
+        this.render();
+    },
+    quantity(_self, id) {
+        if (!_self.value || _self.value <= 0) {
+            _self.value = 1;
+        }
+        let index = this.selected_product.findIndex(item => item.id === id);
+        this.selected_product[index].quantity = _self.value;
+        $(_self).parents('tr').find('.item_total').html(this.selected_product[index].purchase_price * _self.value);
+        this.calculate_total();
+    },
+    render() {
+        let html = '';
+        this.selected_product.forEach(function(info) {
+            html += `
+               <tr>
+                   <td>
+                       <input type="hidden" name="product_id[]" form="purchase_form" value="${info.id}" />
+                       <img src="{{ url('') }}/${info.image}" alt="" width="50">
+                   </td>
+                   <td>${info.name}</td>
+                   <td>
+                        ${info.purchase_price}
+                   </td>
+                   <td>
+                       <input type="number" form="purchase_form" name="quantity[]" value="${info.quantity}" class="form-control quantity" oninput="cart.quantity(this, ${info.id})" min="0">
+                   </td>
+                   <td class="item_total">
+                       ${Number(info.purchase_price) * Number(info.quantity)}
+                   </td>
+                   <td>
+                       <button class="btn btn-sm btn-danger" onclick="cart.remove_item(${info.id})"><i class="fa fa-minus"></i></button>
+                   </td>
+               </tr>
+           `;
+        });
+        $('#selected_items').html(html);
+        this.calculate_total();
+    },
+    calculate_total() {
+        let total = 0;
+        let disc_all = Number($('#discount_all_input').val());
+        let other_chasge = Number($('#other_charges_input').val());
+        let transport_cost = Number($('#transport_cost_input').val());
+        this.selected_product.forEach((item) => {
+            total += Number(item.purchase_price) * Number(item.quantity);
+        });
+        $('.sub_total').html(total);
+        $('.discount_all').html(disc_all);
+        $('.other_charges').html(other_chasge);
+        $('.transport_cost').html(transport_cost);
+        $('.grand_total').html((total + other_chasge + transport_cost) - disc_all);
+    }
+}
+cart.render();
+
+$('#discount_all_input, #other_charges_input, #transport_cost_input').on('input', function() {
+    cart.render();
+});
 let item_ids = [];
 
 $('#select_product').click(function() {

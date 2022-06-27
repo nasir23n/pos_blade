@@ -2,167 +2,77 @@
 
 @section('content')
 
-    <h1 class="content_header">Sales</h1>
-    <style>
-        .product_grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            grid-gap: 10px;
-            margin: 20px 0;
-        }
-        @media (max-width: 992px) {
-            .product_grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        @media (max-width: 700px) {
-            .product_grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        @media (max-width: 470px) {
-            .product_grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 360px) {
-            .product_grid {
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
-        .product_grid .item.active {
-            background: #cfe2ff !important;
-        }
-        .product_grid .item {
-            border: 1px solid #ddd;
-            margin-left: -1px;
-            margin-top: -1px;
-            display: flex;
-            flex-direction: column;
-            user-select: none;
-            transition: all 0.3s ease-in-out;
-        }
-        .product_grid .item:hover {
-            cursor: pointer;
-            background: rgb(235, 243, 255);
-        }
-        .product_grid .item .image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            min-height: 120px;
-        }
-        .product_grid .item .image img {
-            display: block;
-        }
-        .product_grid .item .description {
-            padding: 5px;
-            text-align: center;
-        }
-
-        .preload_musk {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(9, 21, 102, 0.161);
-            z-index: 9;
-            left: 0;
-            top: 0;
-            color: #091566;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-
-
-.select2-container--default.select2-container--focus,.select2-selection.select2-container--focus,.select2-container--default:focus,.select2-selection:focus,.select2-container--default:active,.select2-selection:active {
-	outline:none
+<h1 class="content_header">Sales</h1>
+<style>
+.product_grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+    margin: 20px 0;
 }
-.select2-container--default .select2-selection--single,.select2-selection .select2-selection--single {
-	border:1px solid #d2d6de;
-	border-radius: 0px;
-	display: flex;
+@media (max-width: 992px) {
+    .product_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (max-width: 700px) {
+    .product_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 470px) {
+    .product_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 360px) {
+    .product_grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+.product_grid .item.active {
+    background: #cfe2ff !important;
+}
+.product_grid .item {
+    border: 1px solid #ddd;
+    margin-left: -1px;
+    margin-top: -1px;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    transition: all 0.3s ease-in-out;
+}
+.product_grid .item:hover {
+    cursor: pointer;
+    background: rgb(235, 243, 255);
+}
+.product_grid .item .image {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 6px;
-    padding-left: 10px;
-	height:38px
+    padding: 10px;
+    min-height: 120px;
 }
-.select2-container--default.select2-container--open {
-	border-color:#3c8dbc
+.product_grid .item .image img {
+    display: block;
 }
-.select2-dropdown {
-	border:1px solid #d2d6de;
-	border-radius:0
+.product_grid .item .description {
+    padding: 5px;
+    text-align: center;
 }
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-	background-color:#3c8dbc;
-	color:white
-}
-.select2-results__option {
-	padding:6px 12px;
-	user-select:none;
-	-webkit-user-select:none
-}
-.select2-container .select2-selection--single .select2-selection__rendered {
-	padding-left:0;
-	padding-right:0;
-	height:auto;
-	margin-top:-4px
-}
-.select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
-	padding-right:6px;
-	padding-left:20px
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-	height:33px;
-	right:3px
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow b {
-	margin-top:0
-}
-.select2-dropdown .select2-search__field,.select2-search--inline .select2-search__field {
-	border:1px solid #d2d6de
-}
-.select2-dropdown .select2-search__field:focus,.select2-search--inline .select2-search__field:focus {
-	outline:none;
-	border:1px solid #3c8dbc
-}
-.select2-container--default .select2-results__option[aria-disabled=true] {
-	color:#999
-}
-.select2-container--default .select2-results__option[aria-selected=true] {
-	background-color:#ddd
-}
-.select2-container--default .select2-results__option[aria-selected=true],.select2-container--default .select2-results__option[aria-selected=true]:hover {
-	color:#444
-}
-.select2-container--default .select2-selection--multiple {
-	border:1px solid #d2d6de;
-	border-radius:0
-}
-.select2-container--default .select2-selection--multiple:focus {
-	border-color:#3c8dbc
-}
-.select2-container--default.select2-container--focus .select2-selection--multiple {
-	border-color:#d2d6de
-}
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-	background-color:#3c8dbc;
-	border-color:#367fa9;
-	padding:1px 10px;
-	color:#fff
-}
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-	margin-right:5px;
-	color:rgba(255,255,255,0.7)
-}
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
-	color:#fff
-}
-.select2-container .select2-selection--single .select2-selection__rendered {
-	padding-right:10px
+
+.preload_musk {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 21, 102, 0.161);
+    z-index: 9;
+    left: 0;
+    top: 0;
+    color: #091566;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 </style>
@@ -324,14 +234,10 @@
 
     <br><br><br><br><br><br>
 
-@push('css')
-<link rel="stylesheet" href="{{ asset('backend/common/select2/css/select2.min.css') }}">
-@endpush
+
 
 @push('js')
-<script src="{{ asset('backend/common/select2/js/select2.full.min.js') }}"></script>
 <script>
-$('.select2').select2();
 let item_ids = [];
 
 $('#select_product').click(function() {

@@ -16,6 +16,7 @@ class Purchase extends Model
         'other_charge',
         'date',
         'discount_amount',
+        'transport_cost',
         'discount_all',
         'purchase_no',
         'discount_type',

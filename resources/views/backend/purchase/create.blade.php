@@ -74,6 +74,12 @@ thead, tbody, tfoot, tr, td, th {
                           </div>
                           <input type="number" class="form-control" form="purchase_form" id="other_charges_input" name="other_charges_input" value="0" style="max-width: 200px;" min="0">
                         </li>
+                        <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">Transport Cost</div>
+                          </div>
+                          <input type="number" class="form-control" form="purchase_form" id="transport_cost_input" name="transport_cost_input" value="0" style="max-width: 200px;" min="0">
+                        </li>
                         <li class="list-group-item d-md-flex justify-content-between align-items-center">
                           <div class="ms-2 me-auto">
                             <div class="fw-bold">Discount All</div>
@@ -98,19 +104,25 @@ thead, tbody, tfoot, tr, td, th {
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
-                            <div class="fw-bold">Other Charge</div>
+                                <div class="fw-bold">Transport cost</div>
+                            </div>
+                            <strong class="transport_cost">0</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Other Charge</div>
                             </div>
                             <strong class="other_charges">0</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
-                            <div class="fw-bold">Discount All</div>
+                                <div class="fw-bold">Discount All</div>
                             </div>
                             <strong class="discount_all">0</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
-                            <div class="fw-bold">Grand Total</div>
+                                <div class="fw-bold">Grand Total</div>
                             </div>
                             <strong class="grand_total">0</strong>
                         </li>
@@ -151,14 +163,14 @@ thead, tbody, tfoot, tr, td, th {
             </div>
         </div>
     </div>
+
     <br><br><br><br><br><br>
 
 @push('js')
 <script>
 
-(function() {
-class Cart {
-    selected_product = [];
+const cart = {
+    selected_product: [],
     add(info) {
         if (!this.exist(info.id)) {
             this.selected_product.push(info);
@@ -166,20 +178,20 @@ class Cart {
             this.increment(info.id);
         }
         this.render();
-    }
+    },
     increment(id) {
         let index = this.selected_product.findIndex(item => item.id === id);
         this.selected_product[index].quantity++;
-    }
+    },
     exist(id) {
         let p = this.selected_product.filter((product) => product.id === id);
         return (p.length > 0) ? true : false;
-    }
+    },
     remove_item(id) {
         let index = this.selected_product.findIndex(item => item.id === id);
         this.selected_product.splice(index, 1);
         this.render();
-    }
+    },
     quantity(_self, id) {
         if (!_self.value || _self.value <= 0) {
             _self.value = 1;
@@ -188,7 +200,7 @@ class Cart {
         this.selected_product[index].quantity = _self.value;
         $(_self).parents('tr').find('.item_total').html(this.selected_product[index].purchase_price * _self.value);
         this.calculate_total();
-    }
+    },
     render() {
         let html = '';
         this.selected_product.forEach(function(info) {
@@ -216,17 +228,25 @@ class Cart {
         });
         $('#selected_items').html(html);
         this.calculate_total();
-    }
+    },
     calculate_total() {
         let total = 0;
+        let disc_all = Number($('#discount_all_input').val());
+        let other_chasge = Number($('#other_charges_input').val());
+        let transport_cost = Number($('#transport_cost_input').val());
         this.selected_product.forEach((item) => {
             total += Number(item.purchase_price) * Number(item.quantity);
         });
         $('.sub_total').html(total);
+        $('.discount_all').html(disc_all);
+        $('.other_charges').html(other_chasge);
+        $('.transport_cost').html(transport_cost);
+        $('.grand_total').html((total + other_chasge + transport_cost) - disc_all);
     }
 }
-window.cart = new Cart();
-})();
+$('#discount_all_input, #other_charges_input, #transport_cost_input').on('input', function() {
+    cart.render();
+});
 console.log(cart);
 
 $('#select_product').click(function() {

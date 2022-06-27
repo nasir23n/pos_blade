@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('supplier_id')->constrained();
             $table->bigInteger('created_by');
             $table->double('total_price');
-            // $table->double('transport_cost');
-            $table->double('other_charge');
+            $table->double('transport_cost')->nullable();
+            $table->double('other_charge')->nullable();
             $table->date('date');
             $table->text('purchase_no')->nullable();
             // $table->foreignId('payment_id')->constrained();
